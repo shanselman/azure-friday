@@ -8,10 +8,10 @@ steps:
 
   - task: DotNetCoreCLI@2
       displayName: Build
-      inputs:
-        command: build
-        projects: '**/*.csproj'
-        arguments: '--configuration Release'
+        inputs:
+          command: build
+          projects: '**/*.csproj'
+          arguments: '--configuration Release'
 
 # publish
   - task: DotNetCoreCLI@2
