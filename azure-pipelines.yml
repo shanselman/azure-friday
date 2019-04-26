@@ -1,0 +1,28 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+  - script: |
+      cd .\azure-friday.core\
+      dotnet restore
+
+  - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: build
+        projects: '**/*.csproj'
+        arguments: '--configuration Release'
+
+# publish
+  - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+
+  - task: AzureRmWebAppDeployment@3
+      inputs:
+        azureSubscription: $(azureSubscription)
+        WebAppName: 'azure-friday'
+        Package: $(System.ArtifactsDirectory)/**/*.zip
