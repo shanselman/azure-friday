@@ -1,0 +1,100 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!-- <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> -->
+
+<div class="jumbotron jumbotron-fluid index">
+  <div class="container text-light">
+   <div class="row">
+       <div class="col-md-8">
+            <h1 class="display-4">Azure Friday</h1>
+            <p class="lead"> <strong>Trusted voices at the center of the Enterprise and Cloud computing.</strong> </p>
+            <p>Join Scott Hanselman every Friday as he engages one-on-one with the engineers who build the services 
+                that power Microsoft Azure as they demo capabilities, answer Scott's questions, and share their insights.</p>
+       </div>
+   </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            
+            <form action="/" method="get">
+              <div class="form-group">
+                <div class="input-group mb-3">
+                    <!-- <label for="exampleInputEmail1">Email address</label> -->
+                <input type="text" class="form-control" name="search" id="search" aria-describedby="search" placeholder="Search for video">
+
+                <!-- <input type="date" name="minDate" min="@Model.MinDate.Year-@Model.MinDate.Month-@Model.MinDate.Day" class="form-control mb-2 mr-sm-2"> -->
+                
+                <!-- <input type="date" name="maxDate" min="@Model.MinDate.Year-@Model.MinDate.Month-@Model.MinDate.Day" class="form-control mb-2 mr-sm-2"> -->
+                <div class="input-group-append">    
+                    <button type="submit" class="btn btn-outline-secondary">Search</button>
+                </div>
+                </div>
+               </div>
+            </form>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="video-list">
+                @foreach (var video in Model.Videos)
+                {
+                    <div class="video">
+
+                            <h5 class="title">@video.Title</h5>
+                            <div class="meta">
+                                <span class="episode">
+                                    <strong>Episode:</strong> @video.Episode 
+                                </span> 
+                                <strong>|</strong>
+                                <span class="date">
+                                    <strong>Date:</strong> @DateTime.Parse(video.Live).ToShortDateString()
+                                </span>
+                            </div>
+                            <p class="details">
+                                <strong>Host:</strong> @video.Host <br>
+                                <strong>Guest:</strong> @video.Guest <br>
+                            </p>
+                            <a href="@video.Url" class="button" target="_blank" rel="noopener noreferrer">View Video</a>
+
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-12">
+            <nav class="mt-2" aria-label="Page navigation example">
+              <ul class="pagination">
+                 
+                  
+
+                  <li class="page-item @(!Model.ShowFirst? "disabled":"")">
+                      <a asp-route-CurrentPage="1" asp-route-search="@Model.CurrentSearch" class="page-link"><i class="fas fa-fast-backward"></i></a>
+                  </li>
+
+                  <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+                      <a asp-route-CurrentPage="@(Model.CurrentPage -1)" asp-route-search="@Model.CurrentSearch" class="page-link"><i class="fas fa-step-backward"></i></a>
+                  </li>
+
+                  <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+                      <a asp-route-CurrentPage="@(Model.CurrentPage + 1)" asp-route-search="@Model.CurrentSearch" class="page-link"><i class="fas fa-step-forward"></i></a>
+                  </li>
+
+                  <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+                      <a asp-route-CurrentPage="@Model.PageCount" asp-route-search="@Model.CurrentSearch" class="page-link"><i class="fas fa-fast-forward"></i></a>
+                  </li>
+
+              </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
