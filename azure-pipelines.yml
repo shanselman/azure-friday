@@ -2,7 +2,7 @@ pool:
   vmImage: 'ubuntu-16.04'
 
 steps:
-  - script: cd .\azure-friday.core\
+  - script: cd azure-friday.core
   - script: dotnet restore
 
   - task: DotNetCoreCLI@2
