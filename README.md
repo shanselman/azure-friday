@@ -1,0 +1,1 @@
+[![Build Status](https://asincole.visualstudio.com/azure-friday/_apis/build/status/azure-friday-CI?branchName=master)](https://asincole.visualstudio.com/azure-friday/_build/latest?definitionId=13&branchName=master)
