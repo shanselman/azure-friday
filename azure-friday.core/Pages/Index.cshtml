@@ -48,21 +48,11 @@
     </div>
 </div>
 
-<script>    
-
-</script>
-
 @section loadListJs {
 
-    
-    <!-- intersection observer polyfill -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>
-
-    <environment include="Development">
-        
-        <!-- the iolazy load library -->
-        <!-- <script src="~/js/iolazy.min.js" defer></script> -->
+        <!-- vanilla lazy-load -->
         <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>
+        <!-- list js -->
         <script src="~/js/list.min.js"></script>
-    </environment>
+
 }
