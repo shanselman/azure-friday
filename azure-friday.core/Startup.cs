@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using azure_friday.core.services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,9 +33,6 @@ namespace azure_friday.core
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            // services.AddLazyCache();
-            // add DB service for DI
-            services.AddSingleton<IAzureFridayDB, AzureFridayDB>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -62,6 +62,21 @@ body {
 }
 
 /* Custom styles */
+html {
+  scroll-behavior: smooth;
+}
+
+
+#loading {
+  position: absolute;
+  left: 50%;
+  z-index: 9;
+}
+
+#errorMessage {
+  display: none;
+  text-align: center;
+}
 
 .index.jumbotron {
   background: url('../imgs/azure-friday-banner.jpg');
@@ -86,6 +101,11 @@ body {
 .video:hover {
   border: 2px solid #0f384a;
   box-shadow: 0px 0px 5px gray;
+}
+
+.video > img {
+  flex: 1;
+  width: 100%;
 }
 
 .video .title {
@@ -121,4 +141,94 @@ body {
   .video-list {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+
+/* Pagination styling */
+.pagination li:first-child .page-link {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li:last-child .page-link {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination li.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.page {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page:hover {
+  z-index: 2;
+  color: #0056b3;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.page:focus {
+  z-index: 2;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.page:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+/* back to top button styling */
+#scrollToTop {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #0b2733; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 10px; /* Some padding */
+  border-radius: 50%; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#scrollToTop:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
 }

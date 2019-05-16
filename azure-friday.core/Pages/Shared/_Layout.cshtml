@@ -6,6 +6,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>@ViewData["Title"] - azure_friday</title>
 
     <environment include="Development">
@@ -71,6 +72,9 @@
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
+            <button onclick="scrollToTop()" id="scrollToTop" title="Go to top">
+                <i class="fas fa-chevron-up"></i>
+            </button> 
         </main>
     </div>
 
@@ -98,6 +102,8 @@
                 integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
         </script>
     </environment>
+    
+    @RenderSection("loadListJs",required: false)
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
