@@ -6,10 +6,10 @@ self.addEventListener('install', function (event) {
 
 // assets to cache
 var offlineCache = [
-    '/css/',
-    '/images/',
-    '/js/',
-    '/lib/',
+    '/css/**',
+    '/images/**',
+    '/js/**',
+    '/lib/**',
     '/favicon.ico',
     '/offline'
 ];

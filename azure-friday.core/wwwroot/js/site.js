@@ -8,7 +8,7 @@ let videosAPIUrl = `https://channel9.msdn.com/odata/Areas(guid'aeee37b6-ab0a-4c9
 
 document.body.onload = fetchData(videosAPIUrl);
 
-let userLocale = navigator.language? navigator.language : 'en-US';
+let userLocale = navigator.language ? navigator.language : 'en-US';
 
 // lazy load images
 var lazyLoadInstance = new LazyLoad({
@@ -24,10 +24,11 @@ function fetchData(url) {
             hideLoadingIndicator();
         })
         .catch((err) => {
+            console.log(err);            
             hideLoadingIndicator();
             let errorMessage = document.getElementById('errorMessage');
             errorMessage.style.display = "block";
-            errorMessage.innerHTML = "<p> Unexpected error occured, try reloading this page please</p>";
+            errorMessage.innerHTML = "<p>Unexpected error occured, try reloading this page please</p>";
         })
 }
 
@@ -83,7 +84,7 @@ function renderDataInView(data) {
     // document.body.append(wrapper);
     initList();
     updateLazyLoadInstance();
-   
+
 }
 
 function updateLazyLoadInstance() {
