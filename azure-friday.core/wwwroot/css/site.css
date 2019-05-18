@@ -62,10 +62,10 @@ body {
 }
 
 /* Custom styles */
+
 html {
   scroll-behavior: smooth;
 }
-
 
 #loading {
   position: absolute;
@@ -103,7 +103,7 @@ html {
   box-shadow: 0px 0px 5px gray;
 }
 
-.video > .image {
+.video>.image {
   flex: 1;
   width: 100%;
 }
@@ -113,7 +113,6 @@ html {
   border-bottom: 1px solid #808080b8;
   padding-bottom: 5px;
 }
-
 
 .button {
   text-align: center;
@@ -131,20 +130,27 @@ html {
   background: #144357;
 }
 
-
 .form-control:focus {
   box-shadow: none;
 }
 
 /* resposiveness */
-@media only screen and (min-width: 500px){
+
+@media only screen and (min-width: 500px) {
   .video-list {
     grid-template-columns: 1fr 1fr;
   }
 }
 
+/* fix issue with weird zooming on safari */
+@supports (-webkit-overflow-scrolling: touch) {
+  select, textarea, input {
+    font-size: 16px;
+  }
+}
 
 /* Pagination styling */
+
 .pagination li:first-child .page-link {
   margin-left: 0;
   border-top-left-radius: 0.25rem;
@@ -207,7 +213,7 @@ html {
   cursor: pointer;
 }
 
-.active > .page{
+.active>.page {
   z-index: 1;
   color: #fff;
   background-color: #007bff;
@@ -215,20 +221,34 @@ html {
 }
 
 /* back to top button styling */
+
 .scrollToTop {
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: #0b2733; /* Set a background color */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 10px; /* Some padding */
-  border-radius: 50%; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Fixed/sticky position */
+  bottom: 20px;
+  /* Place the button at the bottom of the page */
+  right: 30px;
+  /* Place the button 30px from the right */
+  z-index: 99;
+  /* Make sure it does not overlap */
+  border: none;
+  /* Remove borders */
+  outline: none;
+  /* Remove outline */
+  background-color: #0b2733;
+  /* Set a background color */
+  color: white;
+  /* Text color */
+  cursor: pointer;
+  /* Add a mouse pointer on hover */
+  padding: 10px;
+  /* Some padding */
+  border-radius: 50%;
+  /* Rounded corners */
+  font-size: 18px;
+  /* Increase font size */
   width: 40px;
   height: 40px;
   display: flex;
@@ -237,5 +257,6 @@ html {
 }
 
 .scrollToTop:hover {
-  background-color: #555; /* Add a dark-grey background on hover */
+  background-color: #555;
+  /* Add a dark-grey background on hover */
 }
