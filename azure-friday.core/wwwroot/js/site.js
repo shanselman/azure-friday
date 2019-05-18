@@ -64,7 +64,7 @@ function renderDataInView(data) {
         var videoElement = document.createElement("div");
         videoElement.setAttribute("class", "video");
         videoElement.innerHTML = `
-        <img data-src="${video.LargeThumbnail}" alt="${video.Title}" class="lazy">
+        <img data-src="${video.LargeThumbnail}" alt="${video.Title}" class="lazy image">
         <h5 class="title">${video.Title}</h5>
         <div class="meta">
             <span class="date">
