@@ -36,19 +36,15 @@
                 })
                 .then((registration)=>{
                     var serviceWorker;
-                    if (registration.installing) {
-                        serviceWorker = registration.installing;
-                    } else if (registration.waiting) {
-                        serviceWorker = registration.waiting;
-                    } else if (registration.active) {
+
+                    if (registration.active) {
                         serviceWorker = registration.active;
-                    }
-                    if (serviceWorker) {
-                        // logState(serviceWorker.state);
-                        serviceWorker.addEventListener('statechange', function (e) {
+                  
+                            serviceWorker.addEventListener('statechange', function (e) {
                             // logState(e.target.state);
-                            let confirmRefresh = confirm("Press a button!");
-                            if(confirmRefresh) {
+                            let confirmRefresh = confirm("New version of this site is available, reload page?");
+
+                              if(confirmRefresh) {
                                 window.location.reload();
                             }
                         });
