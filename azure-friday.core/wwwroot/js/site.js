@@ -3,14 +3,15 @@
 
 // Write your Javascript code.
 
-
+// api url 
 let videosAPIUrl = `https://channel9.msdn.com/odata/Areas(guid'aeee37b6-ab0a-4c9f-8779-a2570148507b')/Entries`;
-
+// wait for body to load completely then make call to API for data
 document.body.onload = fetchData(videosAPIUrl);
-
+// get user's browser locale
 let userLocale = navigator.language ? navigator.language : 'en-US';
 
-// lazy load images
+
+// instantiate lazy load library
 var lazyLoadInstance = new LazyLoad({
     elements_selector: ".lazy"
 });
@@ -31,14 +32,14 @@ function fetchData(url) {
             errorMessage.innerHTML = "<p>Unexpected error occured, try reloading this page please</p>";
         })
 }
-
+// function to hide loader div
 function hideLoadingIndicator() {
     let loader = document.getElementById('loading');
     loader.style.display = "none";
 }
 
 // function to initialize listjs
-function initList() {
+function initListJS() {
     // listJs code
     let options = {
         valueNames: ['title', 'body'],
@@ -55,8 +56,9 @@ function initList() {
 
     var videoList = new List('videos-row', options);
 }
-
+// function to render data in page body once it has been fetched successfully
 function renderDataInView(data) {
+    // get container element for videos
     let wrapper = document.getElementById('videos-list');
     data.value.forEach(video => {
         var videoElement = document.createElement("div");
@@ -74,19 +76,16 @@ function renderDataInView(data) {
         </div>
         <a href="${video.Permalink}" class="button" target="_blank" rel="noopener noreferrer">View Video</a>
         `;
-
-
+        // append video to container
         wrapper.append(videoElement);
-
-
-
     });
-    // document.body.append(wrapper);
-    initList();
+    // make call to initialize listjs.... data has to already be in DOM for listJs to work on it so...
+    initListJS();
+    // lazyLoad instance has to be updated each time the DOM is changed
     updateLazyLoadInstance();
 
 }
-
+// function to update instance 
 function updateLazyLoadInstance() {
     if (lazyLoadInstance) {
         lazyLoadInstance.update();

@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
-<html>
+<html  lang="en">
 <head>
 
     <meta name="theme-color" content="#ffffff"/>
 
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Azure Friday PWA to search through past episodes of Azure Friday.">
 
     <title>@ViewData["Title"] - azure_friday</title>
 
@@ -22,24 +24,37 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
     
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
 
      <script>
          
         // Check if browser supports service worker
         if ('serviceWorker' in navigator) {
             //Register the ServiceWorker
-                navigator.serviceWorker.register('sw.js', {
+                navigator.serviceWorker.register('/sw.js', {
                         scope: './'
+                })
+                .then((registration)=>{
+                    var serviceWorker;
+                    if (registration.installing) {
+                        serviceWorker = registration.installing;
+                    } else if (registration.waiting) {
+                        serviceWorker = registration.waiting;
+                    } else if (registration.active) {
+                        serviceWorker = registration.active;
+                    }
+                    if (serviceWorker) {
+                        // logState(serviceWorker.state);
+                        serviceWorker.addEventListener('statechange', function (e) {
+                            // logState(e.target.state);
+                            let confirmRefresh = confirm("Press a button!");
+                            if(confirmRefresh) {
+                                window.location.reload();
+                            }
+                        });
+                    }
                 });
 
-        
-                navigator.serviceWorker.addEventListener('controllerchange', function () {
-                    let confirmRefresh = confirm("Press a button!");
-                    if(confirmRefresh) {
-                        window.location.reload();
-                    }
-                })
             
         }
     </script>
@@ -70,7 +85,10 @@
 
     <div>
         <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3"> 
+            <noscript>
+                JavaScript is required for this site to run properly, please turn on JavaScript.
+            </noscript>
             @RenderBody()
             <button onclick="scrollToTop()" id="scrollToTop" title="Go to top">
                 <i class="fas fa-chevron-up"></i>

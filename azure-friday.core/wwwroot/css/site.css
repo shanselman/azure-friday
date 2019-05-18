@@ -207,6 +207,13 @@ html {
   cursor: pointer;
 }
 
+li.active > .page{
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
 /* back to top button styling */
 #scrollToTop {
   display: none; /* Hidden by default */

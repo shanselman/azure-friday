@@ -4,11 +4,6 @@
     ViewData["Title"] = "Home page";
 }
 
-<!-- <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div> -->
-
 <div class="jumbotron jumbotron-fluid index">
   <div class="container text-light">
    <div class="row">
@@ -27,7 +22,8 @@
     <div id="videos-row" class="row">
    
         <div class="col-md-12 mb-3">
-            <input type="search" class="form-control search fuzzy-search" name="search"  placeholder="search"/>   
+            <label for="searchBar" class="sr-only">Search Videos</label>
+            <input id="searchBar" type="search" class="form-control search fuzzy-search" name="search"  placeholder="Search Videos"/>   
         </div>
 
         <div class="col-md-12 mb-3">

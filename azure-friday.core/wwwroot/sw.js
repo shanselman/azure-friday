@@ -1,21 +1,22 @@
 //Install stage sets up the offline page in the cache and opens a new cache
-self.addEventListener('install', function (event) {
-    event.waitUntil(preLoad());
+self.addEventListener('install', async function (event) {
+    event.waitUntil(await preLoad());
 });
 
 
 // assets to cache
 var offlineCache = [
-    '/css/**',
-    '/images/**',
-    '/js/**',
+    '/css/site.css',
+    '/imgs/**',
+    '/js/listjs.js',
+    '/js/site.js',
     '/lib/**',
     '/favicon.ico',
     '/offline'
 ];
 
 
-var preLoad = async function () {
+async function preLoad() {
     const cache = await caches.open('azure-friday');
     // assets to cache on installation
     return cache.addAll(offlineCache);
