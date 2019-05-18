@@ -25,7 +25,7 @@ function fetchData(url) {
             hideLoadingIndicator();
         })
         .catch((err) => {
-            console.log(err);            
+            console.log(err);
             hideLoadingIndicator();
             let errorMessage = document.getElementById('errorMessage');
             errorMessage.style.display = "block";
@@ -46,7 +46,7 @@ function initListJS() {
         page: 10,
         pagination: true,
         fuzzySearch: {
-            searchClass: "",
+            searchClass: "fuzzy-search",
             location: 0,
             distance: 100,
             threshold: 0.4,
@@ -65,6 +65,9 @@ function renderDataInView(data) {
         videoElement.setAttribute("class", "video");
         videoElement.innerHTML = `
         <img data-src="${video.LargeThumbnail}" alt="${video.Title}" class="lazy image">
+        <noscript>
+            <img src="${video.LargeThumbnail}" alt="${video.Title}" class="image">
+        </noscript>
         <h5 class="title">${video.Title}</h5>
         <div class="meta">
             <span class="date">

@@ -23,7 +23,9 @@
    
         <div class="col-md-12 mb-3">
             <label for="searchBar" class="sr-only">Search Videos</label>
-            <input id="searchBar" type="search" class="form-control search fuzzy-search" name="search"  placeholder="Search Videos"/>   
+            <input id="searchBar"class="form-control search fuzzy-search" 
+                type="search"  name="search"  placeholder="Search Videos"
+                onkeyup="updateLazyLoadInstance()"/>   
         </div>
 
         <div class="col-md-12 mb-3">

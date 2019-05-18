@@ -103,7 +103,7 @@ html {
   box-shadow: 0px 0px 5px gray;
 }
 
-.video>.image {
+.image {
   flex: 1;
   width: 100%;
 }
@@ -143,6 +143,7 @@ html {
 }
 
 /* fix issue with weird zooming on safari */
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   select, textarea, input {
     font-size: 16px;
