@@ -105,21 +105,42 @@ html {
 }
 
 .video .title {
-  flex: 1;
+  flex: auto;
   border-bottom: 1px solid #808080b8;
   padding-bottom: 5px;
 }
 
-.button {
+.video .author {
+  flex: 1;
+}
+
+.video .meta {
+  flex: 1;
+}
+
+.video .body {
+  flex: auto;
+}
+
+.video .body > strong {
+    font-weight: 400;
+}
+
+.video-link {
+    display: flex;
+}
+
+.video-link .button {
   text-align: center;
   background: #0b2733;
   color: #fefefe;
   padding: 6px;
   transition: .5s ease-in-out;
   border-radius: 2px;
+  width: 100%;
 }
 
-.button:hover {
+.video-link .button:hover {
   box-shadow: 1px 1px 5px black;
   text-decoration: none;
   color: #fefefe;
