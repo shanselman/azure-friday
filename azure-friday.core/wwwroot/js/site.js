@@ -4,7 +4,7 @@
 // Write your Javascript code.
 
 // api url 
-let videosAPIUrl = `https://channel9.msdn.com/odata/Areas(guid'aeee37b6-ab0a-4c9f-8779-a2570148507b')/Entries`;
+let videosAPIUrl = `/?handler=loadvideos`;
 // wait for body to load completely then make call to API for data
 document.body.onload = fetchData(videosAPIUrl);
 // get user's browser locale
@@ -42,8 +42,8 @@ function hideLoadingIndicator() {
 function initListJS() {
     // listJs code
     let options = {
-        valueNames: ['title', 'body'],
-        page: 10,
+        valueNames: ['title', 'author', 'body'],
+        page: 50,
         pagination: true,
         fuzzySearch: {
             searchClass: "fuzzy-search",
@@ -60,22 +60,40 @@ function initListJS() {
 function renderDataInView(data) {
     // get container element for videos
     let wrapper = document.getElementById('videos-list');
-    data.value.forEach(video => {
+    // let bodyRegex = /<p>(.*)<\/p>/gmi;
+    data.items.forEach(video => {
         var videoElement = document.createElement("div");
         videoElement.setAttribute("class", "video");
         videoElement.innerHTML = `
-        <img data-src="${video.LargeThumbnail}" alt="${video.Title}" class="lazy image">
-        <h5 class="title">${video.Title}</h5>
+        <img width="530" height="300" data-src="${video.largeThumbnail}" alt="${video.title} thumbnail" class="lazy image">
+        <h5 class="title">${video.title}</h5>
+        <div class="author">
+            <span> <strong>Authors:</strong> </span> ${video.authors}
+        </div>
         <div class="meta">
             <span class="date">
-                <strong>Date:</strong> ${new Date(video.PublishedDate).toLocaleString(userLocale, { timeZone: 'UTC' })}
+                <span> <strong>Date:</strong> </span> ${new Date(Number.parseInt(video.publishedDate.slice(6, 19), 10)).toLocaleString(userLocale, { timeZone: 'UTC' })}
             </span>
         </div>
-        <div class="body">
-            <strong>Description:</strong> ${video.NoHTMLBody}...
+      
+        <div class="video-link">
+            <a href="${video.itemLink}" class="button" target="_blank" rel="noopener noreferrer">View Video</a>
         </div>
-        <a href="${video.Permalink}" class="button" target="_blank" rel="noopener noreferrer">View Video</a>
         `;
+            // body code 
+        //       <div class="body">
+        //     <span> <strong>Description:</strong> </span>
+        //         ${video.body.match(/<p>(.*)<\/p>/gmi) != null ?
+        //         video.body.match(/<p>(.*)<\/p>/gmi)[0].replace(/(<p>|<\/p>|<ul>(.*)<\/ul>|<a(.*)<\/a>)/gmi, ''): ''}
+
+        // </div>
+
+
+        // because I'm trying to normalize the body text in all individual videos
+        // regex code
+        // ${video.body.match(/<p>(.*)<\/p>/gmi) != null ?
+        // video.body.match(/<p>(.*)<\/p>/gmi)[0].replace(/(<p>|<\/p>|<ul>(.*)<\/ul>)/gmi, '').substring(0, 200) : ''}...
+    
         // append video to container
         wrapper.append(videoElement);
     });
@@ -88,7 +106,9 @@ function renderDataInView(data) {
 // function to update instance 
 function updateLazyLoadInstance() {
     if (lazyLoadInstance) {
-        lazyLoadInstance.update();
+        setTimeout(() => {
+            lazyLoadInstance.update();
+        }, 500);
     }
 }
 
