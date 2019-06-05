@@ -42,6 +42,7 @@ namespace azure_friday.core.services
 
     public class Video
     {
+        private string _largeThumbnail;
         [J("itemLink")]
         public string ItemLink { get; set; }
         [J("itemGroup")]
@@ -65,7 +66,24 @@ namespace azure_friday.core.services
         [J("containerThumbnail")]
         public string ContainerThumbnail { get; set; }
         [J("largeThumbnail")]
-        public string LargeThumbnail { get; set; }
+        public string LargeThumbnail
+        {
+            get
+            {
+                return _largeThumbnail;
+            }
+            set
+            {
+                if (value.Contains("http"))
+                {
+                    _largeThumbnail = value.Replace("http://video.ch9", "https://sec.ch9");
+                }
+                else
+                {
+                    _largeThumbnail = value.Replace("https://video.ch9", "https://sec.ch9");
+                }
+            }
+        }
         [J("mediumThumbnail")]
         public string MediumThumbnail { get; set; }
         [J("smallThumbnail")]
