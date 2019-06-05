@@ -120,14 +120,19 @@ html {
 
 .video .body {
   flex: auto;
+  overflow: hidden;
+  max-height: 6em;
+  hyphens: auto;
+  /* text-align: justify; */
+  word-break: break-all;
 }
 
-.video .body > strong {
-    font-weight: 400;
+.video .body>strong {
+  font-weight: 400;
 }
 
 .video-link {
-    display: flex;
+  display: flex;
 }
 
 .video-link .button {
@@ -153,7 +158,13 @@ html {
 
 /* resposiveness */
 
-@media only screen and (min-width: 500px) {
+/* @media only screen and (max-width: 382px) {
+  .video-list>.video {
+    overflow: scroll;
+  }
+} */
+
+@media only screen and (min-width: 768px) {
   .video-list {
     grid-template-columns: 1fr 1fr;
   }
