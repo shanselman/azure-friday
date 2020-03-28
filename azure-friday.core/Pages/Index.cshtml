@@ -4,7 +4,6 @@
     ViewData["Title"] = "Home page";
 }
 
- <ion-content>
             
     <ion-grid id="videos-row" class="ion-no-padding">
 
@@ -23,6 +22,14 @@
         <ion-row class="ion-justify-content-center ion-padding-horizontal">
             <ion-col size="12" size-md="10">
                 <ion-searchbar class="search" debounce="500" placeholder="Filter Videos (title, author or description...)"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+
+        <ion-row id="errorMessage" class="ion-justify-content-center">
+            <ion-col size="12" class="ion-text-center"> 
+                <ion-text color="danger">
+                    <p><strong>Unexpected error occurred, try reloading this page please</strong></p>
+                </ion-text>
             </ion-col>
         </ion-row>
 
@@ -71,7 +78,6 @@
         
     </ion-grid>
 
-</ion-content>
 
 @section loadListJs {
         <!-- list js -->
