@@ -1,0 +1,22 @@
+@page
+@{
+    ViewData["Title"] = "Offline";
+}
+            
+    <ion-grid class="ion-no-padding">
+
+        <ion-row id="head-banner" class="ion-justify-content-center">
+            <ion-col size="12" size-md="6">              
+                 <h1 class="display-4">@ViewData["Title"]</h1>
+            </ion-col>
+                    
+            <ion-col size="12" size-md="4">              
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+            <ion-col size="12" class="ion-text-center"> 
+                <p>You are currently offline. This page was not cached before you went offline.</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
