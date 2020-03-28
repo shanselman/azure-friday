@@ -1,0 +1,25 @@
+@page
+@{
+    ViewData["Title"] = "404 - Page not found";
+}
+ <ion-content>
+            
+    <ion-grid class="ion-no-padding">
+
+        <ion-row id="head-banner" class="ion-justify-content-center">
+            <ion-col size-sm="12" size-md="6">              
+                 <h1 class="display-4">@ViewData["Title"]</h1>
+            </ion-col>
+                    
+            <ion-col size-sm="12" size-md="4">              
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+            <ion-col size-sm="12" class="ion-text-center"> 
+                <p>This page does not exist.</p>
+                <ion-button href="/">Go to Homepage</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+ </ion-content>
