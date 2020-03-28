@@ -4,7 +4,7 @@
     "name": "Azure Friday",
     "scope": "/",
     "display": "fullscreen",
-    "start_url": "/",
+    "start_url": ".",
     "short_name": "AZ Friday",
     "theme_color": "#ffffff",
     "description": "Azure Friday PWA to search through past episodes of Azure Friday.",

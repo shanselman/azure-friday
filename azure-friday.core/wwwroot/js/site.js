@@ -8,11 +8,11 @@ document.body.onload = fetchData(videosAPIUrl);
 let userLocale = navigator.language ? navigator.language : "en-US";
 // will store the listjs object from the function below here once I initialize it after loading the videos
 var listJsObj;
-// get ionic searchbar element
-const searchbar = document.querySelector("ion-searchbar");
-searchbar.addEventListener("ionClear", handleSearchInput);
 
-// back to top function
+// this event runs when the clear icon in the searchbar is clicked
+document.body.addEventListener("ionClear", handleSearchInput);
+
+// back to top feature
 // When the user scrolls down 50px from the top of the document, show the button
 var ionContent = document.querySelector("ion-content");
 ionContent.scrollEvents = true;
@@ -29,15 +29,17 @@ function fetchData(url) {
     .catch(async err => {
       dismissSkeleton();
       let errorMessage = document.getElementById("errorMessage");
-      errorMessage.style.display = "block";
-      errorMessage.innerHTML =
-        "<p>Unexpected error occurred, try reloading this page please</p>";
+      if (errorMessage && errorMessage.style) {
+        errorMessage.style.display = "block";
+      }
     });
 }
 
 function dismissSkeleton() {
   const skeletonEl = document.getElementById("skeleton");
-  skeletonEl.style.display = "none";
+  if (skeletonEl && skeletonEl.style) {
+    skeletonEl.style.display = "none";
+  }
 }
 
 // function to initialize listjs

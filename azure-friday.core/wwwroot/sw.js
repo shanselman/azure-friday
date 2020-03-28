@@ -1,7 +1,9 @@
 "use strict";
 //Install stage sets up the offline page in the cache and opens a new cache
 self.addEventListener("install", async function(event) {
-  event.waitUntil(await preLoad());
+  try {
+    event.waitUntil(await preLoad());
+  } catch (error) {}
 });
 
 // assets to cache
@@ -19,16 +21,20 @@ var offlineCache = [
 ];
 
 async function preLoad() {
-  const cache = await caches.open("azure-friday");
-  // assets to cache on installation
-  return await cache.addAll(offlineCache);
+  try {
+    const cache = await caches.open("azure-friday");
+    // assets to cache on installation
+    return await cache.addAll(offlineCache);
+  } catch (error) {}
 }
 
 // on page requests
 self.addEventListener("fetch", function(event) {
   event.respondWith(
     checkResponse(event.request).catch(async function() {
-      return await returnFromCache(event.request);
+      try {
+        return await returnFromCache(event.request);
+      } catch (error) {}
     })
   );
   event.waitUntil(addToCache(event.request));
@@ -48,19 +54,23 @@ function checkResponse(request) {
 
 // add request to successful requests to cache
 async function addToCache(request) {
-  const cache = await caches.open("azure-friday");
-  const response = await fetch(request);
-  return await cache.put(request, response);
+  try {
+    const cache = await caches.open("azure-friday");
+    const response = await fetch(request);
+    return await cache.put(request, response);
+  } catch (error) {}
 }
 
 async function returnFromCache(request) {
-  const cache = await caches.open("azure-friday");
-  const matching = await cache.match(request);
-  if (!matching || matching.status == 404) {
-    // return offline page if user is offline, request is not in cache
-    return await cache.match("/offline");
-  } else {
-    // if request is in cache, serve it
-    return matching;
-  }
+  try {
+    const cache = await caches.open("azure-friday");
+    const matching = await cache.match(request);
+    if (!matching || matching.status == 404) {
+      // return offline page if user is offline, request is not in cache
+      return await cache.match("/offline");
+    } else {
+      // if request is in cache, serve it
+      return matching;
+    }
+  } catch (error) {}
 }

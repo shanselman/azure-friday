@@ -30,6 +30,10 @@ ion-row#head-banner {
   display: none;
 }
 
+#errorMessage {
+  display: none;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

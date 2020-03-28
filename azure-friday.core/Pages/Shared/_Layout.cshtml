@@ -92,7 +92,18 @@
             </ion-toolbar>
         </ion-header>
         
+        <ion-content>
+        
         @RenderBody()
+
+            
+            <ion-toolbar>
+                <ion-buttons slot="end">
+                    <ion-button href="/Privacy">Privacy</ion-button>
+                    <ion-button id="changePreferences">Change Preferences</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-content>
         
         <ion-fab id="scrollToTopFab" vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button onclick="scrollToTop()" id="scrollToTop" class="scrollToTop" title="Go to top">
@@ -105,10 +116,6 @@
                 <ion-title>
                     &copy; @DateTime.Now.Year - Azure Friday
                 </ion-title>
-                <ion-buttons slot="end">
-                    <ion-button href="/Privacy">Privacy</ion-button>
-                    <ion-button id="changePreferences">Change Preferences</ion-button>
-                </ion-buttons>
             </ion-toolbar>
         </ion-footer>
     </ion-app>
