@@ -2,27 +2,53 @@
 <html  lang="en">
 <head>
 
+    <environment exclude="Development">
+        <!-- Cookie Consent by https://www.PrivacyPolicies.com -->
+        <script type="text/javascript" src="//www.privacypolicies.com/public/cookie-consent/3.0.0/cookie-consent.js"></script>
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+        cookieconsent.run({"notice_banner_type":"headline","consent_type":"express","palette":"dark","language":"en","website_name":"Azure Friday","change_preferences_selector":"#changePreferences"});
+        });
+        </script>
+
+        <!-- Google Analytics -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+                <script type="text/plain" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-162081151-1"></script>
+                <script type="text/plain" cookie-consent="tracking">
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-162081151-1');
+            </script>
+        <!-- end of Google Analytics-->
+
+        <noscript><a href="https://www.PrivacyPolicies.com/cookie-consent/">Cookie Consent by Privacy Policies Generator</a></noscript>
+        <!-- End Cookie Consent -->
+    </environment>
+
     <meta name="theme-color" content="#ffffff"/>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="Azure Friday PWA to search through past episodes of Azure Friday.">
+    <link rel="apple-touch-icon" href="~/imgs/icons/icon-192x192.png">
 
-    <title>@ViewData["Title"] - azure_friday</title>
+    <title>@ViewData["Title"] | Azure Friday</title>
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    @* <environment include="Development">
+        <link rel="stylesheet" href="~/lib/ionic/css/ionic.bundle.css">
+        <link rel="stylesheet" type="text/css" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
-              crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
-    </environment>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@ionic/core/css/ionic.bundle.css"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment> *@
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@ionic/core/css/ionic.bundle.css"/>
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
     
     <link rel="manifest" href="/manifest.json">
 
@@ -57,68 +83,47 @@
 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Azure Friday</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <!-- <a class="nav-link text-light" asp-area="" asp-page="/Privacy">Privacy</a> -->
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <ion-app>
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-button id="header-home-button" href="/">Azure Friday</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        
+        @RenderBody()
+        
+        <ion-fab id="scrollToTopFab" vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button onclick="scrollToTop()" id="scrollToTop" class="scrollToTop" title="Go to top">
+                <ion-icon name="arrow-up-circle"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
 
-    <div>
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3"> 
-            <noscript>
-                JavaScript is required for this site to run properly, please turn on JavaScript.
-            </noscript>
-            @RenderBody()
-            <button class="scrollToTop" onclick="scrollToTop()" id="scrollToTop" title="Go to top">
-                <i class="fas fa-chevron-up"></i>
-            </button> 
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - Azure Friday - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <ion-footer>
+            <ion-toolbar>
+                <ion-title>
+                    &copy; @DateTime.Now.Year - Azure Friday
+                </ion-title>
+                <ion-buttons slot="end">
+                    <ion-button href="/Privacy">Privacy</ion-button>
+                    <ion-button id="changePreferences">Change Preferences</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-footer>
+    </ion-app>
+    
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@@ionic/core/dist/ionic/ionic.js"></script>
+    @RenderSection("loadListJs",required: false)
+    @* <environment include="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM">
-        </script>
-    </environment>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment> *@
     
-    @RenderSection("loadListJs",required: false)
-    <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
