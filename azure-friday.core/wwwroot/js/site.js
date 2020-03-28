@@ -58,7 +58,6 @@ function initListJS() {
       multiSearch: true
     }
   };
-
   return new List("videos-row", options);
 }
 // function to render data in page body once it has been fetched successfully
