@@ -76,7 +76,7 @@ namespace azure_friday.core.services
             {
                 if (value.Contains("http"))
                 {
-                    _largeThumbnail = value.Replace("http://video.ch9", "https://sec.ch9");=
+                    _largeThumbnail = value.Replace("http://video.ch9", "https://sec.ch9");
                     // _largeThumbnail = value.Replace("http://files.channel9", "https://files.channel9");
                 }
                 else
