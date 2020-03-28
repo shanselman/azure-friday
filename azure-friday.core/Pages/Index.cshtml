@@ -4,54 +4,76 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="jumbotron jumbotron-fluid index">
-  <div class="container text-light">
-   <div class="row">
-       <div class="col-md-8">
-            <h1 class="display-4">Azure Friday</h1>
-            <p class="lead"> <strong>Trusted voices at the center of the Enterprise and Cloud computing.</strong> </p>
-            <p>Join Scott Hanselman every Friday as he engages one-on-one with the engineers who build the services 
-                that power Microsoft Azure as they demo capabilities, answer Scott's questions, and share their insights.</p>
-       </div>
-   </div>
-  </div>
-</div>
+ <ion-content>
+            
+    <ion-grid id="videos-row" class="ion-no-padding">
 
+        <ion-row id="head-banner" class="ion-justify-content-center">
+            <ion-col size="12" size-md="6">              
+                <h1 class="display-4">Azure Friday</h1>
+                <p class="lead"> <strong>Trusted voices at the center of the Enterprise and Cloud computing.</strong> </p>
+                <p>Join Scott Hanselman every Friday as he engages one-on-one with the engineers who build the services 
+                    that power Microsoft Azure as they demo capabilities, answer Scott's questions, and share their insights.</p>
+            </ion-col>
+            
+            <ion-col size="12" size-md="4">              
+            </ion-col>
+        </ion-row>
 
-<div class="container">
-    <div id="videos-row" class="row">
-   
-        <div class="col-md-12 mb-3">
-            <label for="searchBar" class="sr-only">Search Videos</label>
-            <input id="searchBar"class="form-control search fuzzy-search" 
-                type="search"  name="search"  placeholder="Search Videos"
-                onkeyup="updateLazyLoadInstance()"/>   
-        </div>
+        <ion-row class="ion-justify-content-center ion-padding-horizontal">
+            <ion-col size="12" size-md="10">
+                <ion-searchbar class="search" debounce="500" placeholder="Filter Videos (title, author or description...)"></ion-searchbar>
+            </ion-col>
+        </ion-row>
 
-        <div class="col-md-12 mb-3">
-            <div id="loading" class="spinner-grow" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div id="errorMessage" >
-            </div>
-            <div id="videos-list" class="video-list list">
+        <!-- Skeleton screen; gets removed when videos are loaded in DOM -->
+        <ion-row id="skeleton" class="ion-justify-content-center ion-padding-horizontal">
+            @{
+                int count = 4;
+                while (count > 0)
+                {
+                    <ion-col size="12" size-md="5">
+                        <ion-card>
+                            <ion-skeleton-text animated style="width: 100%; height: 240px"></ion-skeleton-text>
+                            <ion-card-header>
+                                <ion-card-subtitle>
+                                    <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                    <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                </ion-card-subtitle>
+                                <ion-card-title>
+                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                </ion-card-title>
+                            </ion-card-header>
 
-            </div>
-        </div>
+                            <ion-card-content>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>                               
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>   
+                    count--;
+                }
+            }
+        </ion-row>
 
-        <div class="col-md-12 mb-3">
-             <ul class="pagination" onclick="updateLazyLoadInstance()"></ul>
-        </div>
+        <ion-row id="videos-list" class="ion-justify-content-center ion-padding-horizontal video-list list">
+            
+        </ion-row>
 
-    </div>
-</div>
+        <ion-row class="ion-justify-content-center ion-padding-horizontal">
+            <ion-col class="ion-padding-horizontal" size="12" size-md="10">
+                <ul class="pagination"></ul>
+            </ion-col>
+        </ion-row>
+        
+    </ion-grid>
+
+</ion-content>
 
 @section loadListJs {
-
-        <!-- vanilla lazy-load -->
-        <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>
         <!-- list js -->
         <script src="~/js/listjs.js"></script>
-
-
 }
