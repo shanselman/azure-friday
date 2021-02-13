@@ -72,7 +72,7 @@ function renderDataInView(data) {
       "beforeend",
       `
     <ion-col size="12" size-md="5">
-        <ion-card>
+        <ion-card href="${video.itemLink}">
           <ion-img src="${video.largeThumbnail}" 
           alt="${video.title} thumbnail" class="lazy image">
           </ion-img>  
