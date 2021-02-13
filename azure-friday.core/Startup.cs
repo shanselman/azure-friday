@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Polly;
 
 namespace azure_friday.core
@@ -37,7 +37,9 @@ namespace azure_friday.core
 
             // services.AddApplicationInsightsTelemetry();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
+            services.AddRazorPages();
 
             // Register LazyCache
             services.AddLazyCache();
@@ -54,9 +56,8 @@ namespace azure_friday.core
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddNLog();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,12 +69,19 @@ namespace azure_friday.core
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
+            app.UseRouting();
             app.UseStatusCodePagesWithReExecute("/{0}");
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseEndpoints(endpoints => {
+                //endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+            });
+
         }
     }
 }
