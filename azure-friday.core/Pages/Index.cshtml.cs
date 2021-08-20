@@ -23,8 +23,7 @@ namespace azure_friday.core.Pages {
             //else, continue 
             if (id.HasValue)
             {
-                var stringId = String.Format("{0:000}", id);
-                return Redirect($"https://aka.ms/azfr/{stringId}");
+                return Redirect($"https://aka.ms/azfr/{id:000}");
             }
             return Page();        
         }
