@@ -22,12 +22,13 @@ ionContent.addEventListener("ionScroll", scrollFunction);
 function fetchData(url) {
   fetch(url)
     .then(response => response.json())
-    .then(async data => {
+      .then(async data => {
       renderDataInView(data);
       dismissSkeleton();
     })
     .catch(async err => {
-      dismissSkeleton();
+        dismissSkeleton();
+        console.log(err);
       let errorMessage = document.getElementById("errorMessage");
       if (errorMessage && errorMessage.style) {
         errorMessage.style.display = "block";
@@ -46,7 +47,7 @@ function dismissSkeleton() {
 function initListJS() {
   // listJs code
   let options = {
-    valueNames: ["title", "author", "body"],
+      valueNames: ["body"],
     page: 20,
     pagination: {
       innerWindow: 2,
@@ -67,26 +68,22 @@ function renderDataInView(data) {
   // get container element for videos
   let wrapper = document.getElementById("videos-list");
   // let bodyRegex = /<p>(.*)<\/p>/gmi;
-  data.items.forEach(video => {
+  data.forEach(video => {
     wrapper.insertAdjacentHTML(
       "beforeend",
       `
     <ion-col size="12" size-md="5">
-        <ion-card href="${video.itemLink}">
-          <ion-img src="${video.largeThumbnail}" 
-          alt="${video.title} thumbnail" class="lazy image">
+        <ion-card href="${video.url}">
+          <ion-img src="${video.thumbnailUrl}" 
+          alt="${video.title} thumbnail" class="lazy image title">
           </ion-img>  
           <ion-card-header>
               <ion-card-subtitle>
                 <div class="author">
-                    <span> <strong>Authors:</strong> </span> ${video.authors}
+                    <!-- <span> <strong>Authors:</strong> </span> -->
                 </div>
                 <div class="meta">
-                    <span class="date">
-                        <span> <strong>Date:</strong> </span> ${new Date(
-                          Number.parseInt(video.publishedDate.slice(6, 19), 10)
-                        ).toLocaleDateString(userLocale)}
-                    </span>
+                    ${new Date(Date.parse(video.uploadDate)).toLocaleDateString(userLocale)}
                 </div>
               </ion-card-subtitle>
               <ion-card-title>${video.title}</ion-card-title>
@@ -94,12 +91,10 @@ function renderDataInView(data) {
 
           <ion-card-content>
             <div class="body">
-                <span> <strong>Description</strong> </span>   ${video.body}
+                <span> <strong>Description</strong> </span>   ${video.descriptionAsHtml}
             </div>
             <div class="video-link">
-                <ion-button expand="full" href="${
-                  video.itemLink
-                }" class="button" target="_blank" rel="noopener noreferrer">
+                <ion-button expand="full" href="${video.url}" class="button" target="_blank" rel="noopener noreferrer">
                   View Video
                 </ion-button>
             </div>

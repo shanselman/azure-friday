@@ -25,13 +25,14 @@ namespace azure_friday.core.services
             _client = client;
         }
 
-        public async Task<Response> GetVideos()
+        public async Task<List<Episode>> GetVideos()
         {
             try
             {
-                var response = await _client.GetAsync(Configuration["AzureFridayApi"]);
+                var url = Configuration["AzureFridayApi"];
+                var response = await _client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsAsync<Response>();
+                return await response.Content.ReadAsAsync<List<Episode>>();
             }
             catch (HttpRequestException ex)
             {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace azure_friday.core.Pages {
     public class IndexModel : PageModel {
         private IAzureFridayDB _db;
-        public List<Video> Videos { get; set; }
+        public List<Episode> Episodes { get; set; }
 
         public IndexModel(IAzureFridayDB db) {
             _db = db;

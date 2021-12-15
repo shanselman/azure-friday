@@ -26,101 +26,33 @@ namespace azure_friday.core.services
             _logger = logger;
             _cache = appCache;
         }
-        public async Task<Response> GetVideos()
+        public async Task<List<Episode>> GetVideos()
         {
-            Func<Task<Response>> videoObjectFactory = () => PopulateVideosCache();
+            Func<Task<List<Episode>>> videoObjectFactory = () => PopulateVideosCache();
             var retVal = await _cache.GetOrAddAsync("videos", videoObjectFactory, DateTimeOffset.Now.AddDays(4));
             return retVal;
         }
 
-        public async Task<Response> PopulateVideosCache()
+        public async Task<List<Episode>> PopulateVideosCache()
         {
-            Response response = await _client.GetVideos();
+            List<Episode> response = await _client.GetVideos();
             return response;
         }
     }
 
-    public class Video
+    public class Episode
     {
-        private string _largeThumbnail;
-        [J("itemLink")]
-        public string ItemLink { get; set; }
-        [J("itemGroup")]
-        public string ItemGroup { get; set; }
-        [J("title")]
-        public string Title { get; set; }
-        [J("published")]
-        public string Published { get; set; }
-        [J("publishedDate")]
-        public string PublishedDate { get; set; }
-        [J("body")]
-        public string Body { get; set; }
-        [J("authors")]
-        public string Authors { get; set; }
-        [J("containerName")]
-        public string ContainerName { get; set; }
-        [J("containerLink")]
-        public string ContainerLink { get; set; }
-        [J("containerBanner")]
-        public string ContainerBanner { get; set; }
-        [J("containerThumbnail")]
-        public string ContainerThumbnail { get; set; }
-        [J("largeThumbnail")]
-        public string LargeThumbnail
-        {
-            get
-            {
-                return _largeThumbnail;
-            }
-            set
-            {
-                if (value.Contains("http"))
-                {
-                    _largeThumbnail = value.Replace("http://video.ch9", "https://sec.ch9");
-                    // _largeThumbnail = value.Replace("http://files.channel9", "https://files.channel9");
-                }
-                else
-                {
-                    _largeThumbnail = value.Replace("https://video.ch9", "https://sec.ch9");
-                }
-            }
-        }
-        [J("mediumThumbnail")]
-        public string MediumThumbnail { get; set; }
-        [J("smallThumbnail")]
-        public string SmallThumbnail { get; set; }
-        [J("videoMP4High")]
-        public string VideoMP4High { get; set; }
-        [J("videoMP4Medium")]
-        public string VideoMP4Medium { get; set; }
-        [J("videoMP4Low")]
-        public string VideoMP4Low { get; set; }
-        [J("videoWMVHQ")]
-        public string VideoWMVHQ { get; set; }
-        [J("videoWMV")]
-        public string VideoWMV { get; set; }
-        [J("videoSmooth")]
-        public string VideoSmooth { get; set; }
-        [J("webTrendsImage")]
-        public string WebTrendsImage { get; set; }
+        public string title { get; init; }
+        public string url { get; init; }
+        public string description { get; init; }
+        public string descriptionAsHtml { get; init; }
+        public string entryId { get; init; }
+        public DateTime uploadDate { get; init; }
+        public string youTubeUrl { get; set; }
+        public string thumbnailUrl { get; set; }
     }
 
-    public partial class Response
-    {
-        [J("items")]
-        public List<Video> Items { get; set; }
-        [J("totalItems")]
-        public int TotalItems { get; set; }
-        [J("pageSize")]
-        public int PageSize { get; set; }
-        [J("PageCount")]
-        public int PageCount { get; set; }
-        [J("currentPage")]
-        public int CurrentPage { get; set; }
-    }
-    public partial class Response
-    {
-        public static Response FromJson(string json) => JsonConvert.DeserializeObject<Response>(json);
-    }
+        
+   //public static List<Episode> FromJson(string json) => JsonConvert.DeserializeObject<List<Episode>>(json);
 
 }
