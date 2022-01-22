@@ -33,6 +33,12 @@ namespace azure_friday.core.services
             return retVal;
         }
 
+        public bool PurgeCache()
+        {
+            _cache.Remove("videos");
+            return true;
+        }
+
         public async Task<List<Episode>> PopulateVideosCache()
         {
             List<Episode> response = await _client.GetVideos();

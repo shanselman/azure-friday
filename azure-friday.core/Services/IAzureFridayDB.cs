@@ -7,5 +7,6 @@ namespace azure_friday.core.services
     {
         Task<List<Episode>> GetVideos();
         Task<List<Episode>> PopulateVideosCache();
+        public bool PurgeCache();
     }
 }

@@ -32,5 +32,11 @@ namespace azure_friday.core.Pages {
             var videos = await _db.GetVideos ();
             return new JsonResult (videos);
         }
+
+        public ActionResult OnPurgeCache()
+        {
+            _db.PurgeCache();
+            return new OkResult();
+        }
     }
 }

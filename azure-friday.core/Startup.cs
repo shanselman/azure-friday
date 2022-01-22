@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using Polly;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace azure_friday.core
 {
@@ -74,6 +75,10 @@ namespace azure_friday.core
             app.UseStatusCodePagesWithReExecute("/{0}");
             app.UseHttpsRedirection();
             app.UseCookiePolicy();
+
+            var options = new RewriteOptions()
+                .AddRedirect("rss", "https://hanselstorage.blob.core.windows.net/output/azurefriday.rss");
+            app.UseRewriter(options);
 
             //app.UseMvc();
             app.UseEndpoints(endpoints => {
