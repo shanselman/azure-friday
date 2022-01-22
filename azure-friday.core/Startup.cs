@@ -77,6 +77,7 @@ namespace azure_friday.core
             app.UseCookiePolicy();
 
             var options = new RewriteOptions()
+                .AddRedirect("rssaudio", "https://hanselstorage.blob.core.windows.net/output/azurefridayaudio.rss")
                 .AddRedirect("rss", "https://hanselstorage.blob.core.windows.net/output/azurefriday.rss");
             app.UseRewriter(options);
 
