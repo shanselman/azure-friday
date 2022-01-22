@@ -29,7 +29,7 @@ namespace azure_friday.core.services
         public async Task<List<Episode>> GetVideos()
         {
             Func<Task<List<Episode>>> videoObjectFactory = () => PopulateVideosCache();
-            var retVal = await _cache.GetOrAddAsync("videos", videoObjectFactory, DateTimeOffset.Now.AddDays(4));
+            var retVal = await _cache.GetOrAddAsync("videos", videoObjectFactory, DateTimeOffset.Now.AddHours(4));
             return retVal;
         }
 
