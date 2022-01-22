@@ -14,11 +14,15 @@ ion-button#header-home-button {
   font-size: 18px;
 }
 
+.headerlink {
+    color: #fff;
+}
+
 ion-row#head-banner {
-  background: url('../imgs/azure-friday-banner.jpg');
-  background-position: center;
-  color: #fff;
-  padding: 5rem 2rem;
+    background: url('../imgs/azure-friday-banner.jpg');
+    background-position: center;
+    color: #fff;
+    padding: 5rem 2rem;
 }
 
 #scrollToTopFab {
