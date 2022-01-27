@@ -1,17 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-
 namespace azure_friday.core.services
 {
     public class AzureFridayClient
     {
         private HttpClient _client;
-        public IConfiguration Configuration { get; }
-
         private ILogger<AzureFridayClient> _logger;
 
         public AzureFridayClient(
@@ -25,6 +16,8 @@ namespace azure_friday.core.services
             _client = client;
         }
 
+        public IConfiguration Configuration { get; }
+
         public async Task<List<Episode>> GetVideos()
         {
             try
@@ -36,12 +29,9 @@ namespace azure_friday.core.services
             }
             catch (HttpRequestException ex)
             {
-                _logger.LogError($"An error occurred connecting to AzureFriday API {ex.ToString()}");
+                _logger.LogError($"An error occurred connecting to AzureFriday API {ex}");
                 throw;
             }
-
         }
-
     }
-
 }
