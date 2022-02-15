@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using azure_friday.core.services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Net.Http.Headers;
 
 namespace azure_friday.core.Pages {
     public class IndexModel : PageModel {
@@ -30,6 +31,7 @@ namespace azure_friday.core.Pages {
 
         public async Task<JsonResult> OnGetLoadVideos () {
             var videos = await _db.GetVideos ();
+            this.HttpContext.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (60*60*4); //four hours
             return new JsonResult (videos);
         }
 
