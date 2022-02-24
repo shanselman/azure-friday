@@ -35,7 +35,7 @@ namespace azure_friday.core.Pages {
             return new JsonResult (videos);
         }
 
-        public ActionResult OnPurgeCache()
+        public Microsoft.AspNetCore.Mvc.ActionResult OnPurgeCache()
         {
             _db.PurgeCache();
             return new OkResult();
