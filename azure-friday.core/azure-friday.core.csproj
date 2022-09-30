@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>azure_friday.core</RootNamespace>
+    <UserSecretsId>7ca10719-ae7f-4892-8c43-31b30d369774</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LazyCache.AspNetCore" Version="2.4.0" />

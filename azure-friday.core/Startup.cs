@@ -36,7 +36,7 @@ namespace azure_friday.core
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            // services.AddApplicationInsightsTelemetry();
+            services.AddApplicationInsightsTelemetry();
 
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddControllers();

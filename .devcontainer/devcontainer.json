@@ -1,0 +1,25 @@
+{
+    "name": "Azure Developer CLI",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "VARIANT": "bullseye"
+        }
+    },
+    "features": {
+        "github-cli": "2",
+        "azure-cli": "2.38",
+        "dotnet": "6.0"
+    },
+    "extensions": [
+        "ms-azuretools.azure-dev",
+        "ms-azuretools.vscode-bicep",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime"
+    ],
+    "forwardPorts": [
+        5000
+    ],
+    "postCreateCommand": "",
+    "remoteUser": "vscode"
+}
