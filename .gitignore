@@ -298,3 +298,4 @@ __pycache__/
 wwwroot/css/site.min.css
 wwwroot/js/site.min.js
 /healthchecksdb
+.azure
