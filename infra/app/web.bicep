@@ -4,6 +4,7 @@ param location string = resourceGroup().location
 param serviceName string = 'web'
 param applicationInsightsName string = ''
 param appServicePlanId string
+param appSettings object = {}
 
 module web '../core/host/appservice-dotnet.bicep' = {
   name: '${serviceName}-appservice-module'
@@ -13,6 +14,7 @@ module web '../core/host/appservice-dotnet.bicep' = {
     serviceName: serviceName
     applicationInsightsName: applicationInsightsName
     appServicePlanId: appServicePlanId
+    appSettings: appSettings
   }
 }
 

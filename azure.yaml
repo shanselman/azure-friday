@@ -3,6 +3,10 @@
 name: azure-friday
 services:
   web:
-    project: ./azure-friday.core
+    project: ./src/azure-friday.core
     language: csharp
     host: appservice
+  function:
+    project: ./src/azure-friday.func/AzureFridayDocstoJSON/AzureFridayDocstoJSON
+    language: csharp
+    host: function

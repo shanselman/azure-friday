@@ -9,7 +9,6 @@ param environmentName string
 @description('Primary location for all resources')
 param location string
 
-
 var abbrs = loadJsonContent('./abbreviations.json')
 var tags = { 'azd-env-name': environmentName }
 
@@ -31,4 +30,7 @@ module resources 'resources.bicep' = {
 output APPLICATIONINSIGHTS_CONNECTION_STRING string = resources.outputs.APPLICATIONINSIGHTS_CONNECTION_STRING
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
-output REACT_APP_WEB_BASE_URL string = resources.outputs.WEB_URI
+output WEB_URI string = resources.outputs.WEB_URI
+output AZURE_FRIDAY_API string = resources.outputs.AZURE_FRIDAY_API
+output AZURE_FRIDAY_AUDIO_RSS string = resources.outputs.AZURE_FRIDAY_AUDIO_RSS
+output AZURE_FRIDAY_RSS string = resources.outputs.AZURE_FRIDAY_RSS

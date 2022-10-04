@@ -1,0 +1,21 @@
+Docs API
+
+You can use the Docs Hierarchy service to fetch a list of episodes for a show: https://docs.microsoft.com/api/hierarchy/shows/azure-friday/episodes?page=0&pageSize=30&orderBy=uploaddate%20desc
+
+The service has a page size limit of 30
+
+If you need to diagnose something using a channel 9 id, you can cross-reference the “origin” property in this response.
+
+To get the media for each episode, you need to call the video service with the episode’s “entryId”: https://docs.microsoft.com/api/video/public/v1/entries/58032f42-438f-4c1d-a52d-1ddc656e02fa
+
+There’s a batch version of this API here: https://docs.microsoft.com/api/video/public/v1/entries/batch?ids=58032f42-438f-4c1d-a52d-1ddc656e02fa,169cae44-8b9f-47de-b590-9c4f4b9141bb
+
+id, name, text, url - (thumbnail)
+1 call main
+1 batch
+n times (max eps / 30)
+
+
+https://channel9.msdn.com/api/entriesbyarea/aeee37b6-ab0a-4c9f-8779-a2570148507b?format=taco
+
+https://hanselstorage.blob.core.windows.net/output/azurefriday.json

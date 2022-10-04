@@ -7,6 +7,7 @@ param applicationInsightsName string = ''
 param appServicePlanId string
 param appSettings object = {}
 param clientAffinityEnabled bool = false
+param enableOryxBuild bool = false
 param functionAppScaleLimit int = 200
 param functionsExtensionVersion string = '~4'
 param functionsWorkerRuntime string
@@ -21,6 +22,8 @@ param serviceName string
 param storageAccountName string
 param use32BitWorkerProcess bool = false
 
+var storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+
 module functions 'appservice.bicep' = {
   name: '${serviceName}-functions'
   params: {
@@ -31,9 +34,10 @@ module functions 'appservice.bicep' = {
     applicationInsightsName: applicationInsightsName
     appServicePlanId: appServicePlanId
     appSettings: union(appSettings, {
-        AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+        AzureWebJobsStorage: storageConnectionString
         FUNCTIONS_EXTENSION_VERSION: functionsExtensionVersion
         FUNCTIONS_WORKER_RUNTIME: functionsWorkerRuntime
+        ENABLE_ORYX_BUILD: enableOryxBuild
       })
     clientAffinityEnabled: clientAffinityEnabled
     functionAppScaleLimit: functionAppScaleLimit

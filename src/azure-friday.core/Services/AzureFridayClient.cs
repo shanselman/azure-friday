@@ -29,7 +29,7 @@ namespace azure_friday.core.services
         {
             try
             {
-                var url = Configuration["AzureFridayApi"];
+                var url = Configuration["AZURE_FRIDAY_API"];
                 var response = await _client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<List<Episode>>();
