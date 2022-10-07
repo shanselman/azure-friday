@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31002.107
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-friday.core", "azure-friday.core\azure-friday.core.csproj", "{6F3E8E68-1092-4C1D-B7BB-2AEACFA096D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-friday.web", "azure-friday.web\azure-friday.web.csproj", "{6F3E8E68-1092-4C1D-B7BB-2AEACFA096D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

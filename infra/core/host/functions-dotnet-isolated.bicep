@@ -2,18 +2,17 @@ param environmentName string
 param location string = resourceGroup().location
 
 param allowedOrigins array = []
-param applicationInsightsName string
+param applicationInsightsName string = ''
 param appServicePlanId string
 param appSettings object = {}
-param enableOryxBuild bool = true
-param functionsExtensionVersion string = '~4'
-param functionsWorkerRuntime string = 'dotnet-isolated'
+param enableOryxBuild bool = false
 param keyVaultName string = ''
 param linuxFxVersion string = 'DOTNET-ISOLATED|6.0'
-param kind string = 'functionapp,linux'
 param managedIdentity bool = !(empty(keyVaultName))
+param scmDoBuildDuringDeployment bool = true
 param serviceName string
 param storageAccountName string
+
 
 module functions 'functions.bicep' = {
   name: '${serviceName}-functions-csharp'
@@ -25,15 +24,13 @@ module functions 'functions.bicep' = {
     appServicePlanId: appServicePlanId
     appSettings: appSettings
     enableOryxBuild: enableOryxBuild
-    functionsExtensionVersion: functionsExtensionVersion
-    functionsWorkerRuntime: functionsWorkerRuntime
+    functionsWorkerRuntime: 'dotnet-isolated'
     keyVaultName: keyVaultName
     linuxFxVersion: linuxFxVersion
     managedIdentity: managedIdentity
+    scmDoBuildDuringDeployment: scmDoBuildDuringDeployment
     serviceName: serviceName
     storageAccountName: storageAccountName
-    scmDoBuildDuringDeployment: false
-    kind: kind
   }
 }
 

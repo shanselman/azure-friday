@@ -16,7 +16,7 @@ module web './app/web.bicep' = {
     environmentName: environmentName
     location: location
     appServicePlanId: sitesAppServicePlan.outputs.appServicePlanId
-    applicationInsightsName: monitoring.outputs.applicationInsightsName 
+    applicationInsightsName: monitoring.outputs.applicationInsightsName
     appSettings: {
       AZURE_FRIDAY_API: azureFridayApi
       AZURE_FRIDAY_AUDIO_RSS: azureFridayAudioRss
@@ -32,7 +32,7 @@ module func './app/function.bicep' = {
     environmentName: environmentName
     location: location
     appServicePlanId: funcAppServicePlan.outputs.appServicePlanId
-    applicationInsightsName: monitoring.outputs.applicationInsightsName 
+    applicationInsightsName: monitoring.outputs.applicationInsightsName
     storageAccountName: storage.outputs.name
   }
 }
@@ -64,6 +64,13 @@ module storage './core/storage/storage-account.bicep' = {
   params: {
     environmentName: environmentName
     location: location
+    allowBlobPublicAccess: true
+    containers: [
+      {
+        name: 'output'
+        publicAccess: 'Blob'
+      }
+    ]
   }
 }
 
