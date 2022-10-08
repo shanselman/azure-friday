@@ -14,7 +14,7 @@ namespace AFAF
         }
 
         [Function("AzureFridayDocsToJSON")]
-        public async Task<Outputs> Run([TimerTrigger("0 */5 * * * *", RunOnStartup = true)] MyInfo myTimer)
+        public async Task<Outputs> Run([TimerTrigger("5 10 * * *", RunOnStartup = true)] MyInfo myTimer)
         {
 
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
