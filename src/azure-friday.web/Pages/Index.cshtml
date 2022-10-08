@@ -1,0 +1,86 @@
+﻿@page "{id:int?}" 
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+            
+    <ion-grid id="videos-row" class="ion-no-padding">
+
+        <ion-row id="head-banner" class="ion-justify-content-center">
+            <ion-col size="12" size-md="6">              
+                <h1 class="display-4">Azure Friday</h1>
+                <p class="lead"> <strong>Trusted voices at the center of the Enterprise and Cloud computing.</strong> </p>
+                <p>Join Scott Hanselman every Friday as he engages one-on-one with the engineers who build the services 
+                    that power Microsoft Azure as they demo capabilities, answer Scott's questions, and share their insights.</p>
+                    <p>Subscribe to our <a class="headerlink" href="https://www.azurefriday.com/rss">RSS Feed</a>, or at <a class="headerlink" href="https://podcasts.apple.com/us/podcast/azure-friday/id739501868">iTunes</a>, <a href="https://music.amazon.com/podcasts/90e47f4b-332d-4045-9e57-86ca38402262/azure-friday">Amazon Music</a>, and <a class="headerlink" href="https://open.spotify.com/show/5VZ8EozeEsAZCTej0zNT4P">Spotify</a>! Explore even more Azure at the <a class="headerlink" href="https://docs.microsoft.com/en-us/shows/azure-friday/">Azure Docs site</a>, and <a class="headerlink" href="https://docs.microsoft.com/en-us/learn/azure/">Microsoft Learn</a>!</p>
+            </ion-col>
+            
+            <ion-col size="12" size-md="4">              
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-padding-horizontal">
+            <ion-col size="12" size-md="10">
+                <ion-searchbar class="search" debounce="500" placeholder="Filter Videos (title, author or description...)"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+
+        <ion-row id="errorMessage" class="ion-justify-content-center">
+            <ion-col size="12" class="ion-text-center"> 
+                <ion-text color="danger">
+                    <p><strong>Unexpected error occurred, try reloading this page please</strong></p>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+        <!-- Skeleton screen; gets removed when videos are loaded in DOM -->
+        <ion-row id="skeleton" class="ion-justify-content-center ion-padding-horizontal">
+            @{
+                int count = 4;
+                while (count > 0)
+                {
+                    <ion-col size="12" size-md="5">
+                        <ion-card>
+                            <ion-skeleton-text animated style="width: 100%; height: 240px"></ion-skeleton-text>
+                            <ion-card-header>
+                                <ion-card-subtitle>
+                                    <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                    <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                </ion-card-subtitle>
+                                <ion-card-title>
+                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                </ion-card-title>
+                            </ion-card-header>
+
+                            <ion-card-content>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>                               
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>   
+                    count--;
+                }
+            }
+        </ion-row>
+
+        <ion-row id="videos-list" class="ion-justify-content-center ion-padding-horizontal video-list list">
+            
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-padding-horizontal">
+            <ion-col class="ion-padding-horizontal" size="12" size-md="10">
+                <ul class="pagination"></ul>
+            </ion-col>
+        </ion-row>
+        
+    </ion-grid>
+
+
+@section loadListJs {
+        <!-- list js -->
+        <script src="~/js/listjs.js"></script>
+}
