@@ -1,27 +1,32 @@
-param environmentName string
+param name string
 param location string = resourceGroup().location
+param tags object = {}
 
 param allowedOrigins array = []
-param applicationInsightsName string
+param applicationInsightsName string = ''
 param appServicePlanId string
 param appSettings object = {}
 param serviceName string = 'function'
 param storageAccountName string
 
-module func '../core/host/functions-dotnet-isolated.bicep' = {
-  name: '${serviceName}-functions-csharp-module'
+module function '../core/host/functions.bicep' = {
+  name: '${serviceName}-functions-dotnet-isolated-module'
   params: {
-    environmentName: environmentName
+    name: name
     location: location
+    tags: union(tags, { 'azd-service-name': serviceName })
     allowedOrigins: allowedOrigins
+    alwaysOn: false
     appSettings: appSettings
     applicationInsightsName: applicationInsightsName
     appServicePlanId: appServicePlanId
-    serviceName: serviceName
+    runtimeName: 'dotnet-isolated'
+    runtimeVersion: '6.0'
     storageAccountName: storageAccountName
+    scmDoBuildDuringDeployment: false
   }
 }
 
-output FUNC_IDENTITY_PRINCIPAL_ID string = func.outputs.identityPrincipalId
-output FUNC_NAME string = func.outputs.name
-output FUNC_URI string = func.outputs.uri
+output SERVICE_FUNCTION_IDENTITY_PRINCIPAL_ID string = function.outputs.identityPrincipalId
+output SERVICE_FUNCTION_NAME string = function.outputs.name
+output SERVICE_FUNCTION_URI string = function.outputs.uri

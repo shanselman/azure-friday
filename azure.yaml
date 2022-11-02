@@ -8,4 +8,5 @@ services:
     host: appservice
   function:
     project: ./src/azure-friday.function
+    language: csharp
     host: function
