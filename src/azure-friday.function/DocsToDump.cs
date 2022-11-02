@@ -262,6 +262,7 @@ namespace AFAF
         {
             if (String.IsNullOrEmpty(url))
                 return String.Empty;
+            url = url.Replace(" ", "%20");
             if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
                 return new Uri(url).ToString();
             else
