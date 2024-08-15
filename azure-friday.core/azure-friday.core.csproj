@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>azure_friday.core</RootNamespace>
     <UserSecretsId>7ca10719-ae7f-4892-8c43-31b30d369774</UserSecretsId>
@@ -9,11 +9,11 @@
     <PackageReference Include="LazyCache.AspNetCore" Version="2.4.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
     <PackageReference Include="Microsoft.aspnet.webapi.client" Version="5.2.9" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.5" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.8" />
     <!-- <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" /> -->
   </ItemGroup>
 </Project>
