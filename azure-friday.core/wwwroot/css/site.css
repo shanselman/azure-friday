@@ -2,27 +2,106 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 :root {
-  --ion-color-primary: #0b2733;
-  --ion-color-primary-rgb: 11, 39, 51;
+  /* Modern Azure-inspired color palette */
+  --ion-color-primary: #0078d4;
+  --ion-color-primary-rgb: 0, 120, 212;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #0a222d;
-  --ion-color-primary-tint: #233d47;
+  --ion-color-primary-shade: #106ebe;
+  --ion-color-primary-tint: #2b88d8;
+  
+  /* Additional modern colors */
+  --azure-accent: #00bcf2;
+  --azure-dark: #005a9e;
+  --azure-light: #e1f5fe;
+  --text-dark: #323130;
+  --text-light: #605e5c;
+  --surface-light: #faf9f8;
+  --border-light: #edebe9;
+  
+  /* Modern shadows */
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 8px 24px rgba(0, 0, 0, 0.2);
+  
+  /* Border radius for modern look */
+  --border-radius: 8px;
+  --border-radius-large: 12px;
+}
+
+/* Modern typography improvements */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.display-4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 ion-button#header-home-button {
   font-size: 18px;
+  font-weight: 600;
+  --color: var(--ion-color-primary);
+}
+
+/* Modern header styling */
+ion-header ion-toolbar {
+  --background: rgba(255, 255, 255, 0.95);
+  --color: var(--text-dark);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .headerlink {
     color: #fff;
+    text-decoration: none;
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.headerlink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: var(--azure-accent);
+    text-decoration: none;
+    color: #fff;
 }
 
 ion-row#head-banner {
-    background: url('../imgs/azure-friday-banner.jpg');
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--azure-dark) 50%, var(--azure-accent) 100%),
+                url('../imgs/azure-friday-banner.jpg');
+    background-blend-mode: overlay;
     background-position: center;
+    background-size: cover;
     color: #fff;
-    padding: 5rem 2rem;
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+ion-row#head-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 120, 212, 0.1);
+    backdrop-filter: blur(1px);
 }
 
 #scrollToTopFab {
@@ -38,85 +117,198 @@ ion-row#head-banner {
   display: none;
 }
 
+/* Modern card enhancements */
+ion-card {
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+ion-card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+ion-card-header {
+  padding: 1.25rem;
+}
+
+ion-card-title {
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+ion-card-subtitle {
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+ion-card-content {
+  padding: 0 1.25rem 1.25rem;
+  color: var(--text-light);
+}
+
+/* Modern search bar styling */
+ion-searchbar {
+  --background: var(--surface-light);
+  --border-radius: var(--border-radius);
+  --box-shadow: var(--shadow-light);
+  --color: var(--text-dark);
+  margin: 1rem 0;
+}
+
+/* Enhanced skeleton loading */
+ion-skeleton-text {
+  border-radius: 4px;
+}
+
+/* Modern footer styling */
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px;
-  /* Vertically center the text there */
+  background-color: var(--surface-light);
+  border-top: 1px solid var(--border-light);
 }
 
+ion-footer ion-toolbar {
+  --background: var(--surface-light);
+  --color: var(--text-light);
+  border-top: 1px solid var(--border-light);
+}
+
+ion-footer a {
+  color: var(--ion-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+ion-footer a:hover {
+  color: var(--azure-dark);
+  text-decoration: underline;
+}
+
+/* Enhanced body content */
 .body {
   flex: auto;
   overflow: hidden;
   max-height: 6em;
   hyphens: auto;
-  /* text-align: justify; */
-  word-break: break-all;
+  word-break: break-word;
+  color: var(--text-light);
+  line-height: 1.5;
 }
 
-/* Pagination styling */
-
-.pagination li:first-child .page-link {
-  margin-left: 0;
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+/* Modern floating action button */
+ion-fab-button {
+  --background: var(--ion-color-primary);
+  --background-hover: var(--azure-dark);
+  --color: white;
+  --box-shadow: var(--shadow-medium);
+  --border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
-.pagination li:last-child .page-link {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+ion-fab-button:hover {
+  transform: scale(1.1);
 }
 
-.pagination li.active .page-link {
-  z-index: 1;
-  color: #fff;
-  background-color: #0b2733;
-  border-color: #0b2733;
+/* Content spacing improvements */
+ion-content {
+  --background: #ffffff;
 }
 
-.pagination li.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
-  cursor: auto;
-  background-color: #fff;
-  border-color: #dee2e6;
+ion-grid {
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  ion-row#head-banner {
+    padding: 4rem 1rem;
+  }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .lead {
+    font-size: 1.1rem;
+  }
+}
+
+/* Modern pagination styling */
 
 .pagination {
   display: flex;
   padding-left: 0;
   list-style: none;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.pagination li:first-child .page-link {
+  margin-left: 0;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.pagination li:last-child .page-link {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.pagination li.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
+  box-shadow: var(--shadow-light);
+}
+
+.pagination li.disabled .page-link {
+  color: var(--text-light);
+  pointer-events: none;
+  cursor: auto;
+  background-color: var(--surface-light);
+  border-color: var(--border-light);
 }
 
 .page {
   position: relative;
   display: block;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #0b2733;
+  color: var(--text-dark);
   background-color: #fff;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--border-light);
   text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .page:hover {
   z-index: 2;
-  color: #0056b3;
+  color: var(--ion-color-primary);
   text-decoration: none;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
+  background-color: var(--surface-light);
+  border-color: var(--ion-color-primary);
+  transform: translateY(-1px);
 }
 
 .page:focus {
   z-index: 2;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 120, 212, 0.25);
 }
 
 .page:not(:disabled):not(.disabled) {
@@ -126,8 +318,8 @@ ion-row#head-banner {
 .active>.page {
   z-index: 1;
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
 }
 
 /* Custom Skeleton Line Height and Margin */
