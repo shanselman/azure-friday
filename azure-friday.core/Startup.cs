@@ -70,6 +70,32 @@ namespace azure_friday.core
                 app.UseHsts();
             }
 
+            // Add domain restriction middleware
+            app.Use(async (context, next) =>
+            {
+                var host = context.Request.Host.Host;
+                
+                // Allow requests from the correct domains
+                if (host.Equals("azurefriday.com", StringComparison.OrdinalIgnoreCase) ||
+                    host.Equals("www.azurefriday.com", StringComparison.OrdinalIgnoreCase))
+                {
+                    await next();
+                }
+                else if (host.Equals("its-azure-friday.azurewebsites.net", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Redirect from Azure App Service URL to the canonical domain
+                    var scheme = context.Request.Scheme;
+                    var pathAndQuery = context.Request.Path + context.Request.QueryString;
+                    var redirectUrl = $"{scheme}://azurefriday.com{pathAndQuery}";
+                    
+                    context.Response.Redirect(redirectUrl, permanent: true);
+                }
+                else
+                {
+                    await next();
+                }
+            });
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseStatusCodePagesWithReExecute("/{0}");
