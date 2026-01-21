@@ -105,7 +105,7 @@ namespace azure_friday.core
             // Add cache control headers for RSS feeds before redirect
             app.Use(async (context, next) =>
             {
-                var path = context.Request.Path.Value?.ToLowerInvariant();
+                var path = context.Request.Path.Value?.ToLowerInvariant() ?? string.Empty;
                 
                 if (path == "/rss" || path == "/rssaudio")
                 {
