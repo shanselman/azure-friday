@@ -1,127 +1,139 @@
 ﻿<!DOCTYPE html>
-<html  lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta name="theme-color" content="#ffffff"/>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0078d4" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1e3a5f" media="(prefers-color-scheme: dark)">
     <meta name="description" content="Azure Friday - Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
     <link rel="apple-touch-icon" href="~/imgs/icons/icon-192x192.png">
-
-    <title>Azure Friday - Learn about the Azure cloud with this free weekly educational video podcast with Scott Hanselman and Friends!</title>
-
-    @* <environment include="Development">
-        <link rel="stylesheet" href="~/lib/ionic/css/ionic.bundle.css">
-        <link rel="stylesheet" type="text/css" href="~/css/site.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@ionic/core/css/ionic.bundle.css"/>
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment> *@
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@ionic/core/css/ionic.bundle.css"/>
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-    
     <link rel="manifest" href="/manifest.json">
 
-      <!-- Facebook Meta Tags -->
-  <meta property="og:url" content="https://www.azurefriday.com">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Azure Friday - Learn about the Azure cloud with this free weekly educational video podcast with Scott Hanselman and Friends!">
-  <meta property="og:description" content="Azure Friday - Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
-  <meta property="og:image" content="https://www.azurefriday.com/imgs/AzureFridayBannerThing.jpg">
+    <title>Azure Friday - Learn about the Azure cloud with Scott Hanselman and Friends!</title>
 
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="twitter:domain" content="azurefriday.com">
-  <meta property="twitter:url" content="https://www.azurefriday.com">
-  <meta name="twitter:title" content="Azure Friday - Learn about the Azure cloud with this free weekly educational video podcast with Scott Hanselman and Friends!">
-  <meta name="twitter:description" content="Azure Friday - Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
-  <meta name="twitter:image" content="https://www.azurefriday.com/imgs/AzureFridayBannerThing.jpg">
-
-
-     <script>
-         
-        // Check if browser supports service worker
-        if ('serviceWorker' in navigator) {
-            //Register the ServiceWorker
-                navigator.serviceWorker.register('/sw.js', {
-                        scope: './'
-                })
-                .then((registration)=>{
-                    var serviceWorker;
-
-                    if (registration.active) {
-                        serviceWorker = registration.active;
-                  
-                            serviceWorker.addEventListener('statechange', function (e) {
-                            // logState(e.target.state);
-                            let confirmRefresh = confirm("New version of this site is available, reload page?");
-
-                              if(confirmRefresh) {
-                                window.location.reload();
-                            }
-                        });
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        azure: {
+                            50: '#e6f2ff',
+                            100: '#b3d9ff',
+                            200: '#80bfff',
+                            300: '#4da6ff',
+                            400: '#1a8cff',
+                            500: '#0078d4',
+                            600: '#005a9e',
+                            700: '#004578',
+                            800: '#002f52',
+                            900: '#001a2c',
+                        }
                     }
-                });
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-            
+    <!-- Theme initialization (prevents flash) -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
 
+    <!-- Open Graph / Twitter Meta Tags -->
+    <meta property="og:url" content="https://www.azurefriday.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Azure Friday - Learn about the Azure cloud with Scott Hanselman and Friends!">
+    <meta property="og:description" content="Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
+    <meta property="og:image" content="https://www.azurefriday.com/imgs/AzureFridayBannerThing.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="azurefriday.com">
+    <meta property="twitter:url" content="https://www.azurefriday.com">
+    <meta name="twitter:title" content="Azure Friday - Learn about the Azure cloud with Scott Hanselman and Friends!">
+    <meta name="twitter:description" content="Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
+    <meta name="twitter:image" content="https://www.azurefriday.com/imgs/AzureFridayBannerThing.jpg">
+
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js', { scope: './' });
+        }
+    </script>
 </head>
-<body>
-    <ion-app>
-        <ion-header>
-            <ion-toolbar>
-                <ion-buttons slot="start">
-                    <ion-button id="header-home-button" href="/">Azure Friday</ion-button>
-                </ion-buttons>
-            </ion-toolbar>
-        </ion-header>
-        
-        <ion-content>
-        
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="/" class="flex items-center gap-2 text-xl font-bold text-azure-600 dark:text-azure-400 hover:text-azure-700 dark:hover:text-azure-300 transition-colors">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure" class="w-8 h-8">
+                    Azure Friday
+                </a>
+
+                <!-- Right side: Nav + Theme Toggle -->
+                <div class="flex items-center gap-4">
+                    <nav class="hidden sm:flex items-center gap-4">
+                </nav>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" type="button" 
+                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        aria-label="Toggle dark mode">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg class="w-5 h-5 hidden dark:block text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                        </svg>
+                        <!-- Moon icon (shown in light mode) -->
+                        <svg class="w-5 h-5 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
         @RenderBody()
+    </main>
 
-            
-            <ion-toolbar>
-                <ion-buttons slot="end">
-                    <ion-button href="/Privacy">Privacy</ion-button>
-                    <ion-button id="changePreferences">Change Preferences</ion-button>
-                </ion-buttons>
-            </ion-toolbar>
-        </ion-content>
-        
-        <ion-fab id="scrollToTopFab" vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button onclick="scrollToTop()" id="scrollToTop" class="scrollToTop" title="Go to top">
-                <ion-icon name="arrow-up-circle"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    &copy; @DateTime.Now.Year Azure Friday
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Built by <a href="https://asincole.com/" class="text-azure-600 dark:text-azure-400 hover:underline">@@asincole</a> 
+                    and <a href="https://www.hanselman.com/" class="text-azure-600 dark:text-azure-400 hover:underline">@@shanselman</a>
+                    · Powered by @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription
+                </p>
+                <div class="flex items-center gap-4">
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        <ion-footer>
-            <ion-toolbar>
-                <ion-title>
-                    &copy; @DateTime.Now.Year - Azure Friday with code by <a href="https://asincole.com/">@@asincole</a> and <a href="https://www.hanselman.com/">@@shanselman</a>, powered by @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription
-                </ion-title>
-            </ion-toolbar>
-        </ion-footer>
-    </ion-app>
-    
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@@ionic/core/dist/ionic/ionic.esm.js"></script>
-    <script nomodule src="https://cdn.jsdelivr.net/npm/@@ionic/core/dist/ionic/ionic.js"></script>
-    @RenderSection("loadListJs",required: false)
-    @* <environment include="Development">
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment> *@
-    
-        <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Back to Top Button -->
+    <button id="scroll-to-top" 
+        class="fixed bottom-6 right-6 p-3 rounded-full bg-azure-500 text-white shadow-lg opacity-0 invisible hover:bg-azure-600 transition-all duration-300 z-50"
+        aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
 
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
