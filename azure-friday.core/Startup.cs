@@ -102,6 +102,22 @@ namespace azure_friday.core
             app.UseHttpsRedirection();
             app.UseCookiePolicy();
 
+            // Add cache control headers for RSS feeds before redirect
+            app.Use(async (context, next) =>
+            {
+                var path = context.Request.Path.Value?.ToLowerInvariant();
+                
+                if (path == "/rss" || path == "/rssaudio")
+                {
+                    // Cache for 5 minutes (300 seconds), public caching allowed, must revalidate
+                    context.Response.Headers["Cache-Control"] = "public, max-age=300, must-revalidate";
+                    // Add Vary header for proper handling of compressed content
+                    context.Response.Headers["Vary"] = "Accept-Encoding";
+                }
+                
+                await next();
+            });
+
             var options = new RewriteOptions()
                 .AddRedirect("rssaudio", "https://hanselstorage.blob.core.windows.net/output/azurefridayaudio.rss")
                 .AddRedirect("rss", "https://hanselstorage.blob.core.windows.net/output/azurefriday.rss");
