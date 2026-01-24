@@ -16,7 +16,7 @@ namespace azure_friday.core.Pages {
             _db = db;
         }
 
-        public IActionResult OnGet(int? id, string path) {
+        public async Task<IActionResult> OnGet(int? id, string path) {
 
             //did the url have an id?
             // left pad with zeros 12 => 012 
@@ -26,6 +26,15 @@ namespace azure_friday.core.Pages {
             {
                 return Redirect($"https://aka.ms/azfr/{id:000}");
             }
+
+            // Get latest episode thumbnail for og:image (uses cached data)
+            var videos = await _db.GetVideos();
+            var latestThumbnail = videos?.FirstOrDefault()?.thumbnailUrl;
+            if (!string.IsNullOrEmpty(latestThumbnail))
+            {
+                ViewData["OgImage"] = latestThumbnail;
+            }
+
             return Page();        
         }
 
