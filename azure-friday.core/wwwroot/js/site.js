@@ -1,6 +1,141 @@
 ﻿"use strict";
 
 // ============================================
+// GeoCities Mode Toggle
+// ============================================
+const geocitiesToggle = document.getElementById('geocities-toggle');
+
+function setGeoCitiesMode(enabled) {
+    if (enabled) {
+        document.documentElement.classList.add('geocities');
+        localStorage.setItem('geocities', 'true');
+        // Add some classic 90s flair
+        addGeoCitiesExtras();
+    } else {
+        document.documentElement.classList.remove('geocities');
+        localStorage.removeItem('geocities');
+        removeGeoCitiesExtras();
+    }
+}
+
+function addGeoCitiesExtras() {
+    // Add flames bar at top
+    if (!document.getElementById('geocities-flames-top')) {
+        const header = document.querySelector('header');
+        if (header) {
+            const flames = document.createElement('div');
+            flames.id = 'geocities-flames-top';
+            flames.className = 'geocities-only geocities-flames';
+            header.insertAdjacentElement('afterend', flames);
+        }
+    }
+
+    // Add marquee to hero if not already there
+    if (!document.getElementById('geocities-marquee')) {
+        const heroSection = document.querySelector('section.bg-gradient-to-br');
+        if (heroSection) {
+            const marqueeDiv = document.createElement('div');
+            marqueeDiv.id = 'geocities-marquee';
+            marqueeDiv.className = 'geocities-only geocities-ants';
+            marqueeDiv.innerHTML = `
+                <marquee behavior="alternate" scrollamount="5" class="geocities-marquee geocities-sparkle">
+                    ★☆★ WELCOME TO AZURE FRIDAY!!! ★☆★ BEST VIEWED WITH NETSCAPE NAVIGATOR 4.0 ★☆★ 
+                    <span class="geocities-new">NEW!</span> 
+                    YOU ARE VISITOR #<span class="geocities-hits">${Math.floor(Math.random() * 900000 + 100000).toLocaleString()}</span> ★☆★
+                    <span class="geocities-hot">HOT!</span> ★☆★
+                </marquee>
+            `;
+            heroSection.insertBefore(marqueeDiv, heroSection.firstChild);
+        }
+    }
+
+    // Add under construction banner with flames
+    if (!document.getElementById('geocities-construction-banner')) {
+        const main = document.querySelector('main');
+        if (main) {
+            const banner = document.createElement('div');
+            banner.id = 'geocities-construction-banner';
+            banner.className = 'geocities-only';
+            banner.innerHTML = `
+                <div class="geocities-tape"></div>
+                <div class="geocities-construction">
+                    <img src="/imgs/construction-worker.gif" alt="" style="height:32px;vertical-align:middle" class="geocities-wobble">
+                    <span class="geocities-blink">🚧</span> THIS PAGE IS UNDER CONSTRUCTION!!! <span class="geocities-blink">🚧</span>
+                    <img src="/imgs/construction-worker.gif" alt="" style="height:32px;vertical-align:middle" class="geocities-wobble">
+                </div>
+                <div class="geocities-tape"></div>
+            `;
+            main.insertBefore(banner, main.firstChild);
+        }
+    }
+
+    // Add circle ants around the hero title
+    const heroTitle = document.querySelector('.bg-gradient-to-br h1');
+    if (heroTitle && !heroTitle.querySelector('.geocities-circle-ants')) {
+        heroTitle.classList.add('geocities-circle-container');
+        const ants = document.createElement('div');
+        ants.className = 'geocities-circle-ants geocities-only';
+        heroTitle.appendChild(ants);
+    }
+
+    // Add guestbook and email links to footer
+    if (!document.getElementById('geocities-footer-extras')) {
+        const footer = document.querySelector('footer .flex');
+        if (footer) {
+            const extras = document.createElement('div');
+            extras.id = 'geocities-footer-extras';
+            extras.className = 'geocities-only text-center w-full mt-4';
+            extras.innerHTML = `
+                <div class="geocities-flames" style="height:30px;margin-bottom:10px"></div>
+                <p class="geocities-neon">
+                    <span class="geocities-spin">📧</span>
+                    <a href="mailto:webmaster@azurefriday.com" class="geocities-guestbook">EMAIL THE WEBMASTER</a>
+                    &nbsp;|&nbsp;
+                    <a href="#" class="geocities-guestbook" onclick="alert('Thanks for signing my guestbook! This feature coming soon! (since 1998)'); return false;">📖 SIGN MY GUESTBOOK 📖</a>
+                    &nbsp;|&nbsp;
+                    <span class="geocities-new">NEW!</span> <a href="#" class="geocities-guestbook" onclick="alert('You have been added to my webring!'); return false;">🔗 JOIN MY WEBRING 🔗</a>
+                </p>
+                <p style="margin-top:8px">
+                    <img src="https://web.archive.org/web/20091026213553/http://geocities.com/ResearchTriangle/Thinktank/4203/netscape.gif" alt="Netscape Now!" style="height:32px" onerror="this.alt='[Netscape Now!]'">
+                    <img src="https://web.archive.org/web/20091027030818/http://www.geocities.com/TheTropics/Cabana/6780/ieani.gif" alt="IE" style="height:32px" onerror="this.style.display='none'">
+                </p>
+                <p class="geocities-blink" style="margin-top:8px;font-size:10px">
+                    ♪ MIDI would be playing if this were really 1997 ♪
+                </p>
+            `;
+            footer.appendChild(extras);
+        }
+    }
+
+    // Play MIDI... just kidding, but show a console message
+    console.log('%c♪ 🎵 [MIDI MUSIC WOULD BE PLAYING] 🎵 ♪', 'color: magenta; font-size: 20px; font-family: Comic Sans MS');
+    console.log('%cWelcome to 1997! Best viewed at 800x600 resolution.', 'color: lime; background: navy; font-family: Comic Sans MS; padding: 10px;');
+}
+
+function removeGeoCitiesExtras() {
+    // Remove added elements
+    document.getElementById('geocities-marquee')?.remove();
+    document.getElementById('geocities-construction-banner')?.remove();
+    document.getElementById('geocities-footer-extras')?.remove();
+}
+
+// Initialize GeoCities mode from localStorage
+if (localStorage.getItem('geocities') === 'true') {
+    document.documentElement.classList.add('geocities');
+    // Defer extras until DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addGeoCitiesExtras);
+    } else {
+        addGeoCitiesExtras();
+    }
+}
+
+geocitiesToggle?.addEventListener('click', () => {
+    const isGeoCities = document.documentElement.classList.contains('geocities');
+    setGeoCitiesMode(!isGeoCities);
+});
+
+// ============================================
 // Theme Toggle
 // ============================================
 const themeToggle = document.getElementById('theme-toggle');

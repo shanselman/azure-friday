@@ -78,3 +78,378 @@
 .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* ============================================
+   GEOCITIES MODE - Welcome to 1997!
+   ============================================ */
+
+/* Hide elements in GeoCities mode */
+.geocities .geocities-hide {
+    display: none !important;
+}
+
+/* Show elements only in GeoCities mode */
+.geocities-only {
+    display: none !important;
+}
+.geocities .geocities-only {
+    display: block !important;
+}
+
+/* Base GeoCities styles */
+.geocities {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive !important;
+    cursor: url('data:image/cur;base64,AAACAAEAICAAAAoACABoBgAAFgAAACgAAAAgAAAAQAAAAAEACAAAAAAAgAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AMDAwACAff8Agj//AIaJ/wCJi/8Aio3/AIqP/wCMj/8AjJH/AE5Q/wBRVP8AU1X/AFZZ/wBaXf8AXmH/AGJk/wBkZ/8AZ2r/AGpt/wBtcP8AcHP/AHN2/wB2ef8AeXz/AHx//wB/gv8AgYT/AIaI/wCIiv8AjI7/AI+R/wCSk/8AlZb/AJiZ/wCbnP8Anp7/AKGh/wCkpP8Ap6f/AKqq/wCsrP8Ar6//ALKy/wC1tf8AuLj/ALu7/wC+vv8AwcH/AMTE/wDHx/8Aysr/AM3N/wDQ0P8A09P/ANXV/wDY2P8A29v/AN7e/wDh4f8A5OT/AOfn/wDq6v8A7Oz/AO/v/wDy8v8A9fX/APj4/wD7+/8A/v7/AAAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=='), auto;
+}
+
+/* Tiled starfield background */
+.geocities body,
+.geocities {
+    background: #000080 url('https://web.archive.org/web/20091027065924/http://geocities.com/SiliconValley/Peaks/5318/stars.gif') repeat !important;
+    color: #00ff00 !important;
+}
+
+/* GeoCities header - wood panel style */
+.geocities header {
+    background: #8B4513 url('https://web.archive.org/web/20091027015402/http://www.geocities.com/SiliconValley/Lab/1832/wood.gif') repeat !important;
+    border-bottom: 4px ridge #ffcc00 !important;
+    backdrop-filter: none !important;
+}
+
+.geocities header * {
+    color: #ffff00 !important;
+    text-shadow: 2px 2px #000000;
+}
+
+/* GeoCities logo styling */
+.geocities header a {
+    color: #ff00ff !important;
+    text-decoration: none;
+}
+
+.geocities header a:hover {
+    color: #00ffff !important;
+}
+
+/* Hero section - maximum 90s energy */
+.geocities section.bg-gradient-to-br {
+    background: #000080 url('https://web.archive.org/web/20091027065924/http://geocities.com/SiliconValley/Peaks/5318/stars.gif') repeat !important;
+    border: 4px double #ffcc00;
+}
+
+.geocities .bg-gradient-to-br h1 {
+    color: #ff00ff !important;
+    text-shadow: 3px 3px #00ffff, -1px -1px #ffff00;
+    animation: geocities-rainbow 1s linear infinite;
+}
+
+.geocities .bg-gradient-to-br p {
+    color: #00ff00 !important;
+    text-shadow: 1px 1px #000000;
+}
+
+/* Rainbow text animation */
+@keyframes geocities-rainbow {
+    0% { color: #ff0000; }
+    16% { color: #ff8800; }
+    33% { color: #ffff00; }
+    50% { color: #00ff00; }
+    66% { color: #0088ff; }
+    83% { color: #ff00ff; }
+    100% { color: #ff0000; }
+}
+
+/* Blink animation for important elements */
+@keyframes geocities-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.geocities .geocities-blink {
+    animation: geocities-blink 1s step-start infinite;
+}
+
+/* Subscribe buttons - neon style */
+.geocities .bg-white\/10 {
+    background: #000000 !important;
+    border: 3px outset #00ffff !important;
+    color: #00ff00 !important;
+    text-shadow: 0 0 10px #00ff00;
+    border-radius: 0 !important;
+}
+
+.geocities .bg-white\/10:hover {
+    background: #003300 !important;
+    border-style: inset !important;
+}
+
+/* Search input - 90s form style */
+.geocities input {
+    background: #ffffff !important;
+    border: 3px inset #808080 !important;
+    color: #000000 !important;
+    font-family: 'Times New Roman', serif !important;
+    border-radius: 0 !important;
+}
+
+/* Video cards - web 1.0 style */
+.geocities #videos-grid > a {
+    background: #c0c0c0 !important;
+    border: 3px outset #ffffff !important;
+    border-radius: 0 !important;
+    color: #000080 !important;
+}
+
+.geocities #videos-grid > a:hover {
+    border-style: inset !important;
+    background: #d4d4d4 !important;
+}
+
+.geocities #videos-grid h3 {
+    color: #000080 !important;
+    text-decoration: underline;
+}
+
+.geocities #videos-grid p {
+    color: #000000 !important;
+}
+
+/* Footer - visitor counter vibes */
+.geocities footer {
+    background: #000000 !important;
+    border-top: 4px ridge #ff00ff !important;
+}
+
+.geocities footer * {
+    color: #00ffff !important;
+}
+
+.geocities footer a {
+    color: #ff00ff !important;
+}
+
+/* Pagination buttons - classic Windows style */
+.geocities #pagination button {
+    background: #c0c0c0 !important;
+    border: 2px outset #ffffff !important;
+    color: #000000 !important;
+    border-radius: 0 !important;
+    font-family: 'MS Sans Serif', Arial, sans-serif !important;
+}
+
+.geocities #pagination button:hover:not(:disabled) {
+    border-style: inset !important;
+}
+
+.geocities #pagination button:disabled {
+    background: #808080 !important;
+    color: #404040 !important;
+}
+
+/* Marquee for GeoCities hero */
+.geocities-marquee {
+    color: #ffff00;
+    font-size: 1.25rem;
+    text-shadow: 1px 1px #000000;
+    padding: 8px 0;
+    background: linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #ff00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: geocities-rainbow 2s linear infinite;
+}
+
+/* Visitor counter style */
+.geocities-counter {
+    font-family: 'Courier New', monospace !important;
+    background: #000000;
+    color: #00ff00;
+    padding: 4px 8px;
+    border: 2px inset #808080;
+    display: inline-block;
+}
+
+/* Under construction banner */
+.geocities-construction {
+    background: #ffff00;
+    color: #000000;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    border-top: 4px dashed #ff0000;
+    border-bottom: 4px dashed #ff0000;
+}
+
+/* Fire GIF decoration */
+.geocities-fire {
+    display: none;
+}
+
+.geocities .geocities-fire {
+    display: inline-block !important;
+}
+
+/* Guestbook link styling */
+.geocities .geocities-guestbook {
+    color: #ff00ff !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.geocities .geocities-guestbook:hover {
+    color: #00ffff !important;
+}
+
+/* Override Tailwind dark mode in GeoCities */
+.geocities.dark {
+    background: #000080 url('https://web.archive.org/web/20091027065924/http://geocities.com/SiliconValley/Peaks/5318/stars.gif') repeat !important;
+}
+
+/* Spinning email icon */
+@keyframes geocities-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.geocities-spin {
+    animation: geocities-spin 2s linear infinite;
+    display: inline-block;
+}
+
+/* Hit counter display */
+.geocities-hits {
+    font-family: 'Courier New', monospace;
+    background: #000;
+    color: #0f0;
+    padding: 2px 6px;
+    border: 1px solid #0f0;
+    font-size: 12px;
+}
+
+/* Marching ants border animation */
+@keyframes geocities-marching-ants {
+    0% { background-position: 0 0, 100% 100%, 0 100%, 100% 0; }
+    100% { background-position: 40px 0, calc(100% - 40px) 100%, 0 calc(100% - 40px), 100% 40px; }
+}
+
+.geocities-ants {
+    background-image: 
+        linear-gradient(90deg, #ff00ff 50%, transparent 50%),
+        linear-gradient(90deg, #ff00ff 50%, transparent 50%),
+        linear-gradient(0deg, #ff00ff 50%, transparent 50%),
+        linear-gradient(0deg, #ff00ff 50%, transparent 50%);
+    background-size: 20px 4px, 20px 4px, 4px 20px, 4px 20px;
+    background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    animation: geocities-marching-ants 1s linear infinite;
+    padding: 8px;
+}
+
+/* Extra blinky for NEW! badges */
+.geocities-new {
+    color: #ff0000;
+    font-weight: bold;
+    animation: geocities-blink 0.5s step-start infinite;
+}
+
+/* Sparkle text effect */
+@keyframes geocities-sparkle {
+    0%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #0ff, 0 0 80px #0ff; }
+    50% { text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #f0f, 0 0 80px #f0f; }
+}
+
+.geocities-sparkle {
+    animation: geocities-sparkle 1.5s ease-in-out infinite;
+}
+
+/* Wobble animation for emphasis */
+@keyframes geocities-wobble {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+.geocities-wobble {
+    animation: geocities-wobble 0.5s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* Flame bar styling */
+.geocities-flames {
+    width: 100%;
+    height: 40px;
+    background: url('/imgs/flames.gif') repeat-x center;
+    image-rendering: pixelated;
+}
+
+/* Circle ants around elements */
+@keyframes geocities-circle-ants {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.geocities-circle-container {
+    position: relative;
+    display: inline-block;
+}
+
+.geocities-circle-ants {
+    position: absolute;
+    inset: -15px;
+    border: 3px dashed #ff00ff;
+    border-radius: 50%;
+    animation: geocities-circle-ants 3s linear infinite;
+    pointer-events: none;
+}
+
+/* Neon glow pulse */
+@keyframes geocities-neon-pulse {
+    0%, 100% { 
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #0ff, 0 0 40px #0ff;
+        filter: brightness(1);
+    }
+    50% { 
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px #0ff, 0 0 20px #0ff;
+        filter: brightness(0.8);
+    }
+}
+
+.geocities .geocities-neon {
+    animation: geocities-neon-pulse 2s ease-in-out infinite;
+}
+
+/* Hot/fire text */
+.geocities-hot {
+    background: linear-gradient(180deg, #ff0 0%, #f80 50%, #f00 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    animation: geocities-wobble 0.3s ease-in-out infinite;
+}
+
+/* Under construction tape stripes */
+.geocities-tape {
+    background: repeating-linear-gradient(
+        45deg,
+        #000,
+        #000 10px,
+        #ffcc00 10px,
+        #ffcc00 20px
+    );
+    padding: 4px 0;
+}
+
+/* Retro button 3D effect */
+.geocities .geocities-btn-3d {
+    background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+    border: 2px outset #fff;
+    box-shadow: 2px 2px 0 #000;
+    color: #000 !important;
+    padding: 4px 12px;
+    font-family: 'MS Sans Serif', Arial, sans-serif !important;
+}
+
+.geocities .geocities-btn-3d:active {
+    border-style: inset;
+    box-shadow: inset 2px 2px 0 #000;
+}

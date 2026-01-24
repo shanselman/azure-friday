@@ -45,6 +45,10 @@
         } else {
             document.documentElement.classList.remove('dark');
         }
+        // GeoCities mode initialization
+        if (localStorage.getItem('geocities') === 'true') {
+            document.documentElement.classList.add('geocities');
+        }
     </script>
 
     <!-- Open Graph / Twitter Meta Tags -->
@@ -83,9 +87,17 @@
                     <nav class="hidden sm:flex items-center gap-4">
                 </nav>
                     
+                    <!-- GeoCities Toggle -->
+                    <button id="geocities-toggle" type="button" 
+                        class="p-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        aria-label="Toggle GeoCities mode"
+                        title="Enter the 90s!">
+                        <img src="/imgs/construction-worker.gif" alt="Under Construction" class="w-7 h-7">
+                    </button>
+                    
                     <!-- Theme Toggle -->
                     <button id="theme-toggle" type="button" 
-                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors geocities-hide"
                         aria-label="Toggle dark mode">
                         <!-- Sun icon (shown in dark mode) -->
                         <svg class="w-5 h-5 hidden dark:block text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
