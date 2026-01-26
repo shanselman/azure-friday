@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.23" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.8" />
     <!-- <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" /> -->
   </ItemGroup>
