@@ -249,6 +249,12 @@ function renderVideos() {
     renderPagination();
 }
 
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
 function createVideoCard(video) {
     const date = new Date(video.uploadDate).toLocaleDateString(userLocale, {
         year: 'numeric',
@@ -263,13 +269,18 @@ function createVideoCard(video) {
     const truncatedDescription = plainDescription.length > 150 
         ? plainDescription.substring(0, 150) + '...' 
         : plainDescription;
+
+    const safeUrl = escapeHtml(video.url || '');
+    const safeThumbnail = escapeHtml(video.thumbnailUrl || '');
+    const safeTitle = escapeHtml(video.title || '');
+    const safeDescription = escapeHtml(truncatedDescription);
     
     return `
-        <a href="${video.url}" target="_blank" rel="noopener noreferrer" 
+        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" 
            class="group block bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-azure-300 dark:hover:border-azure-600">
             <div class="relative aspect-video overflow-hidden">
-                <img src="${video.thumbnailUrl}" 
-                     alt="${video.title}" 
+                <img src="${safeThumbnail}" 
+                     alt="${safeTitle}" 
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                      loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -286,10 +297,10 @@ function createVideoCard(video) {
             <div class="p-4">
                 <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">${date}</p>
                 <h3 class="font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 group-hover:text-azure-600 dark:group-hover:text-azure-400 transition-colors">
-                    ${video.title}
+                    ${safeTitle}
                 </h3>
                 <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
-                    ${truncatedDescription}
+                    ${safeDescription}
                 </p>
             </div>
         </a>

@@ -44,7 +44,15 @@ namespace azure_friday.core.Pages {
             return new JsonResult (videos);
         }
 
-        public Microsoft.AspNetCore.Mvc.ActionResult OnPurgeCache()
+        /// <summary>
+        /// Purges the in-memory video cache (4-hour LazyCache).
+        /// Call via POST to /?handler=PurgeCache with a valid antiforgery token.
+        /// This forces the next request to re-fetch episodes from the external API.
+        /// Useful after a new episode is published and you don't want to wait for 
+        /// the cache to expire naturally. Only accessible via POST with antiforgery 
+        /// token validation (default Razor Pages behavior), preventing CSRF attacks.
+        /// </summary>
+        public Microsoft.AspNetCore.Mvc.ActionResult OnPostPurgeCache()
         {
             _db.PurgeCache();
             return new OkResult();
