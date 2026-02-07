@@ -91,18 +91,26 @@ function addGeoCitiesExtras() {
                     <span class="geocities-spin">📧</span>
                     <a href="mailto:webmaster@azurefriday.com" class="geocities-guestbook">EMAIL THE WEBMASTER</a>
                     &nbsp;|&nbsp;
-                    <a href="#" class="geocities-guestbook" onclick="alert('Thanks for signing my guestbook! This feature coming soon! (since 1998)'); return false;">📖 SIGN MY GUESTBOOK 📖</a>
+                    <a href="#" class="geocities-guestbook" data-action="guestbook">📖 SIGN MY GUESTBOOK 📖</a>
                     &nbsp;|&nbsp;
-                    <span class="geocities-new">NEW!</span> <a href="#" class="geocities-guestbook" onclick="alert('You have been added to my webring!'); return false;">🔗 JOIN MY WEBRING 🔗</a>
+                    <span class="geocities-new">NEW!</span> <a href="#" class="geocities-guestbook" data-action="webring">🔗 JOIN MY WEBRING 🔗</a>
                 </p>
                 <p style="margin-top:8px">
-                    <img src="https://web.archive.org/web/20091026213553/http://geocities.com/ResearchTriangle/Thinktank/4203/netscape.gif" alt="Netscape Now!" style="height:32px" onerror="this.alt='[Netscape Now!]'">
-                    <img src="https://web.archive.org/web/20091027030818/http://www.geocities.com/TheTropics/Cabana/6780/ieani.gif" alt="IE" style="height:32px" onerror="this.style.display='none'">
+                    <img src="https://web.archive.org/web/20091026213553/http://geocities.com/ResearchTriangle/Thinktank/4203/netscape.gif" alt="Netscape Now!" style="height:32px">
+                    <img src="https://web.archive.org/web/20091027030818/http://www.geocities.com/TheTropics/Cabana/6780/ieani.gif" alt="IE" style="height:32px">
                 </p>
                 <p class="geocities-blink" style="margin-top:8px;font-size:10px">
                     ♪ MIDI would be playing if this were really 1997 ♪
                 </p>
             `;
+            extras.querySelector('[data-action="guestbook"]').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Thanks for signing my guestbook! This feature coming soon! (since 1998)');
+            });
+            extras.querySelector('[data-action="webring"]').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('You have been added to my webring!');
+            });
             footer.appendChild(extras);
         }
     }
