@@ -7,7 +7,7 @@ param applicationInsightsName string = ''
 param appServicePlanId string
 param appSettings object = {}
 param keyVaultName string = ''
-param linuxFxVersion string = 'DOTNETCORE|6.0'
+param linuxFxVersion string = 'DOTNETCORE|10.0'
 param managedIdentity bool = !(empty(keyVaultName))
 param scmDoBuildDuringDeployment bool = false
 param serviceName string
