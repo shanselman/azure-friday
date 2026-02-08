@@ -1,15 +1,8 @@
 using azure_friday.core.services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.Configure<CookiePolicyOptions>(options =>
-{
-    options.CheckConsentNeeded = context => true;
-    options.MinimumSameSitePolicy = SameSiteMode.None;
-});
 
 builder.Services.AddApplicationInsightsTelemetry();
 builder.Services.AddControllers();
@@ -77,7 +70,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseStatusCodePagesWithReExecute("/{0}");
 app.UseHttpsRedirection();
-app.UseCookiePolicy();
 
 var rewriteOptions = new RewriteOptions()
     .AddRedirect("rssaudio", "https://hanselstorage.blob.core.windows.net/output/azurefridayaudio.rss")
