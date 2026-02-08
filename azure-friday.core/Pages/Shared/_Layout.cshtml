@@ -7,7 +7,6 @@
     <meta name="theme-color" content="#1e3a5f" media="(prefers-color-scheme: dark)">
     <meta name="description" content="Azure Friday - Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
     <link rel="apple-touch-icon" href="~/imgs/icons/icon-192x192.png">
-    <link rel="manifest" href="/manifest.json">
 
     <title>Azure Friday - Learn about the Azure cloud with Scott Hanselman and Friends!</title>
 
@@ -63,13 +62,6 @@
     <meta name="twitter:title" content="Azure Friday - Learn about the Azure cloud with Scott Hanselman and Friends!">
     <meta name="twitter:description" content="Search through past episodes of the Azure Friday cloud video podcast with Scott Hanselman and learn more about the Azure Cloud!">
     <meta name="twitter:image" content="@(ViewData["OgImage"] ?? "https://www.azurefriday.com/imgs/AzureFridayBannerThing.jpg")">
-
-    <!-- Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js', { scope: './' });
-        }
-    </script>
 </head>
 <body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
     <!-- Header -->
