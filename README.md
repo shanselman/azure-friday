@@ -36,7 +36,7 @@ The website for [azurefriday.com](https://azurefriday.com) — Scott Hanselman's
 
 - **.NET 10** with minimal hosting (`Program.cs`, no Startup.cs)
 - **Razor Pages** for the UI
-- **Tailwind CSS** (CDN) with vanilla JS for episode filtering
+- **Tailwind CSS** (build-time via CLI, no CDN) with vanilla JS for episode filtering
 - **LazyCache** for 4-hour in-memory caching of episode data
 - **Polly** for HTTP retry + circuit breaker on the API client
 - **Application Insights** for monitoring
@@ -48,15 +48,41 @@ The website for [azurefriday.com](https://azurefriday.com) — Scott Hanselman's
 ### Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- [Azure CLI](https://aka.ms/getazcli) (for deployment)
-- [Azure Developer CLI](https://aka.ms/azd) (optional, for `azd up`)
+- [Node.js 20+](https://nodejs.org) (for Tailwind CSS build)
+- [Azure CLI](https://aka.ms/getazcli) (for deployment only)
 
 ### Quick Start
 
+```powershell
+# One-time setup (installs npm deps, builds Tailwind CSS, restores .NET packages, runs tests)
+.\scripts\setup.ps1
+
+# Run the site
+dotnet run --project azure-friday.core
+```
+
+Or manually:
+
 ```bash
 cd azure-friday.core
-dotnet run
+npm install              # Install Tailwind CSS
+npm run build:css        # Build CSS (wwwroot/css/tailwind.css)
+cd ..
+dotnet run --project azure-friday.core
 ```
+
+### CSS Development
+
+When actively editing Tailwind classes in `.cshtml` or `.js` files, run the watcher in a second terminal:
+
+```bash
+cd azure-friday.core
+npm run watch:css        # Rebuilds tailwind.css on every file change
+```
+
+> **Note:** `tailwind.css` is checked into git so `dotnet run` works immediately after clone.
+> The watcher is only needed when you're changing Tailwind utility classes.
+> On `dotnet publish`, CSS is always rebuilt fresh via the MSBuild target.
 
 The app reads episode data from `https://hanselstorage.blob.core.windows.net/output/azurefriday.json` (configured in `appsettings.json`).
 
@@ -114,8 +140,15 @@ azure-friday/
 │   │   ├── IAzureFridayDB.cs    # Interface
 │   │   ├── AzureFridayDB.cs     # LazyCache wrapper (4-hour TTL)
 │   │   └── AzureFridayClient.cs # HTTP client for blob storage JSON
-│   └── wwwroot/                 # Static assets (CSS, JS, images)
+│   ├── wwwroot/                 # Static assets
+│   │   ├── css/input.css        # Tailwind source + custom styles (GeoCities etc.)
+│   │   ├── css/tailwind.css     # Built output (checked in, rebuilt on publish)
+│   │   └── js/                  # site.js (app logic), theme-init.js (dark mode)
+│   ├── tailwind.config.js       # Tailwind config (azure color palette)
+│   └── package.json             # npm scripts: build:css, watch:css
 ├── azure-friday.tests/          # xUnit integration + unit tests
+├── scripts/
+│   └── setup.ps1                # One-time developer setup script
 ├── infra/                       # Bicep infrastructure templates
 ├── azure.yaml                   # Azure Developer CLI config
 └── .github/workflows/           # GitHub Actions CI/CD

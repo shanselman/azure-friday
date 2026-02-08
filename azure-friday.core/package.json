@@ -1,10 +1,12 @@
 {
   "name": "azure-friday.core",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Azure Friday website - Tailwind CSS build",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "npx tailwindcss -i wwwroot/css/input.css -o wwwroot/css/tailwind.css --minify",
+    "watch:css": "npx tailwindcss -i wwwroot/css/input.css -o wwwroot/css/tailwind.css --watch",
+    "dev": "npx tailwindcss -i wwwroot/css/input.css -o wwwroot/css/tailwind.css --watch"
   },
   "keywords": [],
   "author": "",
