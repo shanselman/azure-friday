@@ -1,15 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Threading.Tasks;
 using LazyCache;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-
-
-using Newtonsoft.Json.Converters;
-using J = Newtonsoft.Json.JsonPropertyAttribute;
 
 namespace azure_friday.core.services
 {
@@ -57,8 +50,4 @@ namespace azure_friday.core.services
         public string youTubeUrl { get; set; }
         public string thumbnailUrl { get; set; }
     }
-
-        
-   //public static List<Episode> FromJson(string json) => JsonConvert.DeserializeObject<List<Episode>>(json);
-
 }
