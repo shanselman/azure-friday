@@ -10,14 +10,9 @@ self.addEventListener("install", async function(event) {
 var offlineCache = [
   "/css/site.css",
   "/imgs/**",
-  "/js/listjs.js",
   "/js/site.js",
-  "/lib/**",
   "/favicon.ico",
-  "/offline",
-  "https://cdn.jsdelivr.net/npm/@@ionic/core/css/ionic.bundle.css",
-  "https://cdn.jsdelivr.net/npm/@@ionic/core/dist/ionic/ionic.esm.js",
-  "https://cdn.jsdelivr.net/npm/@@ionic/core/dist/ionic/ionic.js"
+  "/offline"
 ];
 
 async function preLoad() {

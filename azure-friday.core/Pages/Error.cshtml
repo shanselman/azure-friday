@@ -1,33 +1,19 @@
 ﻿@page
 @model ErrorModel
 @{
-    ViewData["Title"] = "Error Page";
+    ViewData["Title"] = "Error";
 }
 
-            
-    <ion-grid class="ion-no-padding">
-
-        <ion-row id="head-banner" class="ion-justify-content-center">
-            <ion-col size="12" size-md="6">              
-                 <h1>@ViewData["Title"]</h1>
-            </ion-col>
-                    
-            <ion-col size="12" size-md="4">              
-            </ion-col>
-        </ion-row>
-
-        <ion-row class="ion-justify-content-center" class="ion-padding">
-            <ion-col size="12" class="ion-padding  ion-text-center">
-                <ion-text color="danger">
-                    <h2 class="text-danger">An error occurred while processing your request.</h2>
-                    @if (Model.ShowRequestId)
-                    {
-                        <p>
-                            <strong>Request ID:</strong> <code>@Model.RequestId</code>
-                        </p>
-                    }
-                </ion-text>
-                <ion-button class="ion-text-center" href="/">Go to Homepage</ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+<section class="max-w-2xl mx-auto px-4 py-16 text-center">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100">@ViewData["Title"]</h1>
+    <p class="mt-4 text-lg text-red-600 dark:text-red-400">An error occurred while processing your request.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <strong>Request ID:</strong> <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">@Model.RequestId</code>
+        </p>
+    }
+    <a href="/" class="mt-8 inline-block px-6 py-3 rounded-lg bg-azure-500 text-white font-medium hover:bg-azure-600 transition-colors">
+        Go to Homepage
+    </a>
+</section>
