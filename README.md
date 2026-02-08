@@ -73,16 +73,17 @@ dotnet run --project azure-friday.core
 
 ### CSS Development
 
-When actively editing Tailwind classes in `.cshtml` or `.js` files, run the watcher in a second terminal:
+Tailwind CSS is rebuilt automatically on every `dotnet build` / `dotnet run` via an MSBuild target (~250ms). No separate step needed.
+
+For **instant** CSS updates without restarting the app, you can optionally run the watcher in a second terminal:
 
 ```bash
 cd azure-friday.core
-npm run watch:css        # Rebuilds tailwind.css on every file change
+npm run watch:css        # Rebuilds tailwind.css on every file save
 ```
 
-> **Note:** `tailwind.css` is checked into git so `dotnet run` works immediately after clone.
-> The watcher is only needed when you're changing Tailwind utility classes.
-> On `dotnet publish`, CSS is always rebuilt fresh via the MSBuild target.
+> **Note:** `tailwind.css` is checked into git so the site works even without Node.js installed.
+> The MSBuild target ensures fresh CSS on every build when Node.js is available.
 
 The app reads episode data from `https://hanselstorage.blob.core.windows.net/output/azurefriday.json` (configured in `appsettings.json`).
 

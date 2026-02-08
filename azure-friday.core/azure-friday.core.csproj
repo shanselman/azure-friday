@@ -13,13 +13,8 @@
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.2" />
   </ItemGroup>
 
-  <!-- Build Tailwind CSS before publish (always) and before build (only if tailwind.css is missing) -->
-  <Target Name="BuildTailwindCSS" BeforeTargets="Publish">
-    <Exec Command="npm ci --ignore-scripts" WorkingDirectory="$(MSBuildProjectDirectory)" />
-    <Exec Command="npx tailwindcss -i wwwroot/css/input.css -o wwwroot/css/tailwind.css --minify" WorkingDirectory="$(MSBuildProjectDirectory)" />
-  </Target>
-  <Target Name="EnsureTailwindCSS" BeforeTargets="Build" Condition="!Exists('wwwroot/css/tailwind.css')">
-    <Message Text="tailwind.css not found — running Tailwind build..." Importance="high" />
+  <!-- Build Tailwind CSS as part of every build and publish -->
+  <Target Name="BuildTailwindCSS" BeforeTargets="Build">
     <Exec Command="npm install --ignore-scripts" WorkingDirectory="$(MSBuildProjectDirectory)" />
     <Exec Command="npx tailwindcss -i wwwroot/css/input.css -o wwwroot/css/tailwind.css --minify" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
