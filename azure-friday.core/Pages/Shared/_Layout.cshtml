@@ -10,45 +10,11 @@
 
     <title>Azure Friday - Learn about the Azure cloud with Scott Hanselman and Friends!</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        azure: {
-                            50: '#e6f2ff',
-                            100: '#b3d9ff',
-                            200: '#80bfff',
-                            300: '#4da6ff',
-                            400: '#1a8cff',
-                            500: '#0078d4',
-                            600: '#005a9e',
-                            700: '#004578',
-                            800: '#002f52',
-                            900: '#001a2c',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Tailwind CSS (built at publish time) -->
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
 
-    <!-- Theme initialization (prevents flash) -->
-    <script>
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-        // GeoCities mode initialization
-        if (localStorage.getItem('geocities') === 'true') {
-            document.documentElement.classList.add('geocities');
-        }
-    </script>
+    <!-- Theme initialization (prevents flash of unstyled content) -->
+    <script src="~/js/theme-init.js" asp-append-version="true"></script>
 
     <!-- Open Graph / Twitter Meta Tags -->
     <meta property="og:url" content="https://www.azurefriday.com">

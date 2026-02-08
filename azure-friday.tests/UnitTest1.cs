@@ -241,7 +241,11 @@ public class SecurityHeaderTests : IClassFixture<TestWebApplicationFactory>
         }
         var csp = values.First();
         Assert.Contains("default-src 'self'", csp);
+        Assert.Contains("script-src 'self'", csp);
         Assert.Contains("frame-ancestors 'none'", csp);
+        Assert.DoesNotContain("unsafe-inline", csp);
+        Assert.DoesNotContain("unsafe-eval", csp);
+        Assert.DoesNotContain("cdn.tailwindcss.com", csp);
     }
 }
 
