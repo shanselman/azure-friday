@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 using azure_friday.core.services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Net.Http.Headers;
 
 namespace azure_friday.core.Pages {
     public class IndexModel : PageModel {
         private IAzureFridayDB _db;
+        private IConfiguration _configuration;
         public List<Episode> Episodes { get; set; }
 
-        public IndexModel(IAzureFridayDB db) {
+        public IndexModel(IAzureFridayDB db, IConfiguration configuration) {
             _db = db;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> OnGet(int? id, string path) {
@@ -46,14 +49,15 @@ namespace azure_friday.core.Pages {
 
         /// <summary>
         /// Purges the in-memory video cache (4-hour LazyCache).
-        /// Call via POST to /?handler=PurgeCache with a valid antiforgery token.
-        /// This forces the next request to re-fetch episodes from the external API.
-        /// Useful after a new episode is published and you don't want to wait for 
-        /// the cache to expire naturally. Only accessible via POST with antiforgery 
-        /// token validation (default Razor Pages behavior), preventing CSRF attacks.
+        /// Requires a valid PurgeCacheKey and POST with antiforgery token.
         /// </summary>
-        public Microsoft.AspNetCore.Mvc.ActionResult OnPostPurgeCache()
+        public Microsoft.AspNetCore.Mvc.ActionResult OnPostPurgeCache(string key)
         {
+            var expectedKey = _configuration["PurgeCacheKey"];
+            if (string.IsNullOrEmpty(expectedKey) || string.IsNullOrEmpty(key) || !string.Equals(key, expectedKey, StringComparison.Ordinal))
+            {
+                return new UnauthorizedResult();
+            }
             _db.PurgeCache();
             return new OkResult();
         }

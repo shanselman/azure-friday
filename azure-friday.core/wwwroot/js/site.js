@@ -192,6 +192,20 @@ let currentPage = 1;
 const videosPerPage = 20;
 const userLocale = navigator.language || 'en-US';
 
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+function sanitizeUrl(url) {
+    if (!url) return '';
+    try {
+        const parsed = new URL(url);
+        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') return url;
+    } catch (e) { }
+    return '';
+}
+
 // DOM Elements
 const videosGrid = document.getElementById('videos-grid');
 const skeletonGrid = document.getElementById('skeleton-grid');
@@ -257,12 +271,6 @@ function renderVideos() {
     renderPagination();
 }
 
-function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-}
-
 function createVideoCard(video) {
     const date = new Date(video.uploadDate).toLocaleDateString(userLocale, {
         year: 'numeric',
@@ -278,16 +286,16 @@ function createVideoCard(video) {
         ? plainDescription.substring(0, 150) + '...' 
         : plainDescription;
 
-    const safeUrl = escapeHtml(video.url || '');
-    const safeThumbnail = escapeHtml(video.thumbnailUrl || '');
-    const safeTitle = escapeHtml(video.title || '');
+    const safeUrl = sanitizeUrl(video.url);
+    const safeThumbnailUrl = sanitizeUrl(video.thumbnailUrl);
+    const safeTitle = escapeHtml(video.title);
     const safeDescription = escapeHtml(truncatedDescription);
-    
+
     return `
         <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" 
            class="group block bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-azure-300 dark:hover:border-azure-600">
             <div class="relative aspect-video overflow-hidden">
-                <img src="${safeThumbnail}" 
+                <img src="${safeThumbnailUrl}"
                      alt="${safeTitle}" 
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                      loading="lazy">
