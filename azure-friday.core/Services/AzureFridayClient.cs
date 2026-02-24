@@ -36,7 +36,7 @@ namespace azure_friday.core.services
             }
             catch (HttpRequestException ex)
             {
-                _logger.LogError($"An error occurred connecting to AzureFriday API {ex.ToString()}");
+                _logger.LogError(ex, "An error occurred connecting to AzureFriday API");
                 throw;
             }
 

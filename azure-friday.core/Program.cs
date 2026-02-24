@@ -66,10 +66,10 @@ app.Use(async (context, next) =>
     }
 });
 
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseStatusCodePagesWithReExecute("/{0}");
-app.UseHttpsRedirection();
 
 var rewriteOptions = new RewriteOptions()
     .AddRedirect("rssaudio", "https://hanselstorage.blob.core.windows.net/output/azurefridayaudio.rss")

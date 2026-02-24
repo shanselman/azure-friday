@@ -278,12 +278,10 @@ function createVideoCard(video) {
         day: 'numeric'
     });
     
-    // Strip HTML from description for plain text preview
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = video.descriptionAsHtml || '';
-    const plainDescription = tempDiv.textContent || tempDiv.innerText || '';
-    const truncatedDescription = plainDescription.length > 150 
-        ? plainDescription.substring(0, 150) + '...' 
+    // Use plain-text description directly to avoid potential XSS via innerHTML
+    const plainDescription = video.description || '';
+    const truncatedDescription = plainDescription.length > 150
+        ? plainDescription.substring(0, 150) + '...'
         : plainDescription;
 
     const safeUrl = sanitizeUrl(video.url);
