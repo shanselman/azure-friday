@@ -342,7 +342,7 @@ function renderPagination() {
     
     // Previous button
     html += `
-        <button onclick="goToPage(${currentPage - 1})" 
+        <button data-page="${currentPage - 1}" 
                 ${currentPage === 1 ? 'disabled' : ''} 
                 class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -359,7 +359,7 @@ function renderPagination() {
         } else {
             const isActive = page === currentPage;
             html += `
-                <button onclick="goToPage(${page})" 
+                <button data-page="${page}" 
                         class="px-4 py-2 rounded-lg border ${isActive 
                             ? 'border-azure-500 bg-azure-500 text-white' 
                             : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'} transition-colors">
@@ -371,7 +371,7 @@ function renderPagination() {
     
     // Next button
     html += `
-        <button onclick="goToPage(${currentPage + 1})" 
+        <button data-page="${currentPage + 1}" 
                 ${currentPage === totalPages ? 'disabled' : ''} 
                 class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -410,8 +410,12 @@ function getPaginationRange(current, total) {
     return rangeWithDots;
 }
 
-// Global function for pagination buttons
-window.goToPage = function(page) {
+// Event delegation for pagination buttons
+pagination?.addEventListener('click', function(e) {
+    const btn = e.target.closest('button[data-page]');
+    if (!btn || btn.disabled) return;
+    
+    const page = parseInt(btn.dataset.page, 10);
     const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
     if (page < 1 || page > totalPages) return;
     
@@ -420,7 +424,7 @@ window.goToPage = function(page) {
     
     // Scroll to videos section
     document.getElementById('videos-section')?.scrollIntoView({ behavior: 'smooth' });
-};
+});
 
 // ============================================
 // Search / Filter
