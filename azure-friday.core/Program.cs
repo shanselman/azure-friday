@@ -17,6 +17,10 @@ builder.Services.AddHttpClient<AzureFridayClient>()
     ));
 
 builder.Services.AddSingleton<IAzureFridayDB, AzureFridayDB>();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 var app = builder.Build();
 
@@ -25,6 +29,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
+
+app.UseResponseCompression();
 
 // Security headers
 app.Use(async (context, next) =>
@@ -66,7 +72,14 @@ app.Use(async (context, next) =>
     }
 });
 
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        // Cache static files for 1 hour, but revalidate with the server
+        ctx.Context.Response.Headers.CacheControl = "public, max-age=3600, must-revalidate";
+    }
+});
 app.UseRouting();
 app.UseStatusCodePagesWithReExecute("/{0}");
 app.UseHttpsRedirection();
