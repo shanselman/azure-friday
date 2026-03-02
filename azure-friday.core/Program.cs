@@ -46,7 +46,11 @@ app.Use(async (context, next) =>
         "img-src 'self' https: data:; " +
         "font-src 'self'; " +
         "connect-src 'self'; " +
-        "frame-ancestors 'none';";
+        "object-src 'none'; " +
+        "base-uri 'self'; " +
+        "form-action 'self'; " +
+        "frame-ancestors 'none'; " +
+        "upgrade-insecure-requests;";
     await next();
 });
 

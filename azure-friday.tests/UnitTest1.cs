@@ -243,6 +243,10 @@ public class SecurityHeaderTests : IClassFixture<TestWebApplicationFactory>
         Assert.Contains("default-src 'self'", csp);
         Assert.Contains("script-src 'self'", csp);
         Assert.Contains("frame-ancestors 'none'", csp);
+        Assert.Contains("object-src 'none'", csp);
+        Assert.Contains("base-uri 'self'", csp);
+        Assert.Contains("form-action 'self'", csp);
+        Assert.Contains("upgrade-insecure-requests", csp);
         Assert.DoesNotContain("unsafe-inline", csp);
         Assert.DoesNotContain("unsafe-eval", csp);
         Assert.DoesNotContain("cdn.tailwindcss.com", csp);
