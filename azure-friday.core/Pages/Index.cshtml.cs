@@ -51,6 +51,7 @@ namespace azure_friday.core.Pages {
         /// Purges the in-memory video cache (4-hour LazyCache).
         /// Requires a valid PurgeCacheKey and POST with antiforgery token.
         /// </summary>
+        [ValidateAntiForgeryToken]
         public Microsoft.AspNetCore.Mvc.ActionResult OnPostPurgeCache(string key)
         {
             var expectedKey = _configuration["PurgeCacheKey"];
