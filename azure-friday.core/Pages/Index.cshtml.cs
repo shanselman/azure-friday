@@ -43,7 +43,7 @@ namespace azure_friday.core.Pages {
 
         public async Task<JsonResult> OnGetLoadVideos () {
             var videos = await _db.GetVideos ();
-            this.HttpContext.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (60*60*4); //four hours
+            this.HttpContext.Response.Headers[HeaderNames.CacheControl] = "public, max-age=3600, must-revalidate"; //one hour, must revalidate
             return new JsonResult (videos);
         }
 

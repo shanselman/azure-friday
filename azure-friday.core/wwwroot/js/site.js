@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchVideos() {
     try {
-        const response = await fetch(videosAPIUrl);
+        const response = await fetch(videosAPIUrl + '&_t=' + Math.floor(Date.now() / (1000 * 60 * 60)));
         if (!response.ok) throw new Error('Failed to fetch videos');
         
         allVideos = await response.json();
@@ -288,6 +288,7 @@ function createVideoCard(video) {
 
     const safeUrl = sanitizeUrl(video.url);
     const safeThumbnailUrl = sanitizeUrl(video.thumbnailUrl);
+    const cacheBustedThumbnail = safeThumbnailUrl ? safeThumbnailUrl + (safeThumbnailUrl.includes('?') ? '&' : '?') + '_t=' + Math.floor(Date.now() / (1000 * 60 * 60)) : '';
     const safeTitle = escapeHtml(video.title);
     const safeDescription = escapeHtml(truncatedDescription);
 
@@ -295,7 +296,7 @@ function createVideoCard(video) {
         <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" 
            class="group block bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-azure-300 dark:hover:border-azure-600">
             <div class="relative aspect-video overflow-hidden">
-                <img src="${safeThumbnailUrl}"
+                <img src="${cacheBustedThumbnail}"
                      alt="${safeTitle}" 
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">

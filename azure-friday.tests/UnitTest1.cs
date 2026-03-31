@@ -178,7 +178,7 @@ public class VideosApiTests : IClassFixture<TestWebApplicationFactory>
         var cacheControl = response.Headers.CacheControl;
 
         Assert.True(cacheControl?.Public);
-        Assert.Equal(TimeSpan.FromHours(4), cacheControl?.MaxAge);
+        Assert.Equal(TimeSpan.FromHours(1), cacheControl?.MaxAge);
     }
 }
 
