@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using azure_friday.core.services;
 using Microsoft.AspNetCore.Mvc;
@@ -48,17 +49,26 @@ namespace azure_friday.core.Pages {
         }
 
         /// <summary>
-        /// Purges the in-memory video cache (4-hour LazyCache).
-        /// Requires a valid PurgeCacheKey and POST with antiforgery token.
+        /// Purges the in-memory video cache (1-hour LazyCache).
+        /// Requires a valid PurgeCacheKey via POST form body with antiforgery token.
         /// </summary>
         [ValidateAntiForgeryToken]
-        public Microsoft.AspNetCore.Mvc.ActionResult OnPostPurgeCache(string key)
+        public Microsoft.AspNetCore.Mvc.ActionResult OnPostPurgeCache([FromForm] string key)
         {
             var expectedKey = _configuration["PurgeCacheKey"];
-            if (string.IsNullOrEmpty(expectedKey) || string.IsNullOrEmpty(key) || !string.Equals(key, expectedKey, StringComparison.Ordinal))
+            if (string.IsNullOrEmpty(expectedKey) || string.IsNullOrEmpty(key))
             {
                 return new UnauthorizedResult();
             }
+
+            var keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
+            var expectedBytes = System.Text.Encoding.UTF8.GetBytes(expectedKey);
+            if (keyBytes.Length != expectedBytes.Length ||
+                !CryptographicOperations.FixedTimeEquals(keyBytes, expectedBytes))
+            {
+                return new UnauthorizedResult();
+            }
+
             _db.PurgeCache();
             return new OkResult();
         }

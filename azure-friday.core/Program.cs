@@ -17,10 +17,7 @@ builder.Services.AddHttpClient<AzureFridayClient>()
     ));
 
 builder.Services.AddSingleton<IAzureFridayDB, AzureFridayDB>();
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-});
+builder.Services.AddResponseCompression();
 
 var app = builder.Build();
 
@@ -70,9 +67,14 @@ app.Use(async (context, next) =>
         var pathAndQuery = context.Request.Path + context.Request.QueryString;
         context.Response.Redirect($"{scheme}://azurefriday.com{pathAndQuery}", permanent: true);
     }
+    else if (app.Environment.IsDevelopment())
+    {
+        await next(); // Allow any host in development (e.g., localhost)
+    }
     else
     {
-        await next();
+        // Reject unrecognized hosts to prevent open redirect via Host header
+        context.Response.StatusCode = 400;
     }
 });
 

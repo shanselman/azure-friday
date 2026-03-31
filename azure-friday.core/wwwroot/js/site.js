@@ -278,10 +278,13 @@ function createVideoCard(video) {
         day: 'numeric'
     });
     
-    // Strip HTML from description for plain text preview
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = video.descriptionAsHtml || '';
-    const plainDescription = tempDiv.textContent || tempDiv.innerText || '';
+    // Safely extract plain text from HTML without executing scripts
+    const plainDescription = (() => {
+        const html = video.descriptionAsHtml || '';
+        if (!html) return '';
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || '';
+    })();
     const truncatedDescription = plainDescription.length > 150 
         ? plainDescription.substring(0, 150) + '...' 
         : plainDescription;
