@@ -4,7 +4,24 @@ using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApplicationInsightsTelemetry();
+var applicationInsightsConnectionString =
+    builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"] ??
+    builder.Configuration["ApplicationInsights:ConnectionString"];
+
+var applicationInsightsInstrumentationKey =
+    builder.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"] ??
+    builder.Configuration["ApplicationInsights:InstrumentationKey"];
+
+if (!string.IsNullOrWhiteSpace(applicationInsightsConnectionString))
+{
+    builder.Services.AddApplicationInsightsTelemetry(options =>
+        options.ConnectionString = applicationInsightsConnectionString);
+}
+else if (!string.IsNullOrWhiteSpace(applicationInsightsInstrumentationKey))
+{
+    builder.Services.AddApplicationInsightsTelemetry(options =>
+        options.ConnectionString = $"InstrumentationKey={applicationInsightsInstrumentationKey}");
+}
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddLazyCache();
