@@ -3,12 +3,16 @@ on:
   push:
     branches:
     - master
+  pull_request:
+    branches:
+    - master
 env:
   AZURE_WEBAPP_NAME: its-azure-friday
   AZURE_WEBAPP_PACKAGE_PATH: azure-friday.core/publish
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{secrets.itsazurefriday_1f35}}
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 10.0.x
+  TEST_PROJECT: azure-friday.tests/azure-friday.tests.csproj
   WORKING_DIRECTORY: azure-friday.core
 jobs:
   build-and-deploy:
@@ -30,20 +34,23 @@ jobs:
       run: npx tailwindcss -i wwwroot/css/input.css -o wwwroot/css/tailwind.css --minify
       working-directory: ${{ env.WORKING_DIRECTORY }}
     - name: Restore
-      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+      run: dotnet restore "${{ env.TEST_PROJECT }}"
     - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+      run: dotnet build "${{ env.TEST_PROJECT }}" --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
-      run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
+      run: dotnet test "${{ env.TEST_PROJECT }}" --configuration ${{ env.CONFIGURATION }} --no-build
     - name: Publish
+      if: github.event_name == 'push'
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Deploy to Azure WebApp
+      if: github.event_name == 'push'
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
     - name: Publish Artifacts
+      if: github.event_name == 'push'
       uses: actions/upload-artifact@v4
       with:
         name: webapp
