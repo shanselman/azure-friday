@@ -209,6 +209,7 @@ function sanitizeUrl(url) {
 // DOM Elements
 const videosGrid = document.getElementById('videos-grid');
 const skeletonGrid = document.getElementById('skeleton-grid');
+const featuredEpisode = document.getElementById('featured-episode');
 const searchInput = document.getElementById('search-input');
 const resultsCount = document.getElementById('results-count');
 const errorMessage = document.getElementById('error-message');
@@ -227,10 +228,16 @@ async function fetchVideos() {
         allVideos = await response.json();
         filteredVideos = [...allVideos];
         
+        renderFeaturedEpisode();
         renderVideos();
         showVideosGrid();
     } catch (err) {
         console.error('Error fetching videos:', err);
+        if (featuredEpisode) {
+            featuredEpisode.classList.remove('animate-pulse', 'bg-gray-200', 'dark:bg-gray-800');
+            featuredEpisode.className = 'rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 text-center text-gray-600 dark:text-gray-300';
+            featuredEpisode.textContent = 'The latest episode could not be loaded. Browse the archive or try again shortly.';
+        }
         showError();
     }
 }
@@ -244,6 +251,53 @@ function showVideosGrid() {
 function showError() {
     skeletonGrid?.classList.add('hidden');
     errorMessage?.classList.remove('hidden');
+}
+
+// ============================================
+// Render featured episode
+// ============================================
+function renderFeaturedEpisode() {
+    if (!featuredEpisode || !allVideos.length) return;
+
+    const video = allVideos[0];
+    const safeUrl = sanitizeUrl(video.url);
+    const safeThumbnailUrl = sanitizeUrl(video.thumbnailUrl);
+    const safeTitle = escapeHtml(video.title || 'Latest Azure Friday episode');
+    const plainDescription = (() => {
+        const html = video.descriptionAsHtml || video.description || '';
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || '';
+    })();
+    const safeDescription = escapeHtml(plainDescription.length > 240
+        ? plainDescription.substring(0, 240) + '...'
+        : plainDescription);
+    const date = new Date(video.uploadDate).toLocaleDateString(userLocale, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    featuredEpisode.classList.remove('animate-pulse', 'bg-gray-200', 'dark:bg-gray-800');
+    featuredEpisode.innerHTML = `
+        <div class="grid overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-900 shadow-lg lg:grid-cols-5">
+            <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="group relative block aspect-video overflow-hidden lg:col-span-3 lg:aspect-auto" aria-label="Watch ${safeTitle}">
+                <img src="${safeThumbnailUrl}" alt="${safeTitle}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                <span class="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-gray-900 shadow-lg transition group-hover:bg-azure-100">
+                    <svg class="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                    Watch the latest episode
+                </span>
+            </a>
+            <div class="flex flex-col justify-center p-6 sm:p-8 lg:col-span-2">
+                <p class="text-sm font-medium text-cyan-300">Published ${date}</p>
+                <h3 class="mt-2 text-2xl font-bold leading-tight text-white sm:text-3xl">${safeTitle}</h3>
+                <p class="mt-4 line-clamp-4 text-sm leading-relaxed text-gray-300">${safeDescription}</p>
+                <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 rounded-lg bg-azure-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-azure-400 focus-visible:outline-white">
+                    Start watching <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    `;
 }
 
 // ============================================
